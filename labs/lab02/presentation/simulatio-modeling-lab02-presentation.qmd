@@ -23,11 +23,16 @@ polyglossia-lang:
 
 
 ## Title
-title:  Презентации по Лабораторной работе 2 
-subtitle: Предмету Имитационное Моделирование 
+title:  Презентации по Лабораторной работе 2
+subtitle: Предмету Имитационное Моделирование
 license: CC BY
 date: today
 date-format: "2026-03-06" # Example: 2025-09-06
+format:
+  pdf:
+    pdf-engine: lualatex
+    keep-tex: true
+  revealjs: default
 ---
 
 # Информация

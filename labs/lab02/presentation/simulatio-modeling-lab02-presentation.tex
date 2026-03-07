@@ -1,50 +1,12 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
-  ignorenonframetext,
-  aspectratio=169,
-  russian,
-]{beamer}
-\usepackage{pgfpages}
-\setbeamertemplate{caption}[numbered]
-\setbeamertemplate{caption label separator}{: }
-\setbeamercolor{caption name}{fg=normal text.fg}
-\beamertemplatenavigationsymbolshorizontal
-% Prevent slide breaks in the middle of a paragraph
-\widowpenalties 1 10000
-\raggedbottom
-\setbeamertemplate{part page}{
-  \centering
-  \begin{beamercolorbox}[sep=16pt,center]{part title}
-    \usebeamerfont{part title}\insertpart\par
-  \end{beamercolorbox}
-}
-\setbeamertemplate{section page}{
-  \centering
-  \begin{beamercolorbox}[sep=12pt,center]{section title}
-    \usebeamerfont{section title}\insertsection\par
-  \end{beamercolorbox}
-}
-\setbeamertemplate{subsection page}{
-  \centering
-  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
-    \usebeamerfont{subsection title}\insertsubsection\par
-  \end{beamercolorbox}
-}
-\AtBeginPart{
-  \frame{\partpage}
-}
-\AtBeginSection{
-  \ifbibliography
-  \else
-    \frame{\sectionpage}
-  \fi
-}
-\AtBeginSubsection{
-  \frame{\subsectionpage}
-}
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
 
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -67,20 +29,55 @@
   \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
 \usepackage{xcolor}
-\newif\ifbibliography
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
 
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
-\usepackage{caption}
-% Make caption package work with longtable
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
 \makeatletter
-\def\fnum@table{\tablename~\thetable}
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
 \makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
 \newsavebox\pandoc@box
@@ -97,32 +94,7 @@
 \def\fps@figure{htbp}
 \makeatother
 
-\IfFileExists{plex-otf.sty}{
-  %% Full TeXlive
-  % \usepackage[%
-  %   % math,
-  %   RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}
-  % ]{plex-otf}
-}{
-  %% TinyTeX
-  \usepackage{libertine}
-}
-
-%%% Load theme
-% https://deic.uab.cat/~iblanes/beamer_gallery/
-\IfFileExists{beamerthemegotham.sty}{
-  %% Full TeXlive
-  \usetheme{gotham}
-  \gothamset{
-    numbering=totalpagenumber,
-    parttocframe default=off,
-    sectiontocframe default=off,
-    subsectiontocframe default=off,
-  }
-}{
-  %% TinyTeX
-  \usetheme{Madrid}
-}
+\KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -171,11 +143,9 @@
 \usepackage[bidi=default]{babel}
 \fi
 \babelprovide[main,import]{russian}
-\babelprovide[import]{english}
 % get rid of language-specific shorthands (see #6817):
 \let\LanguageShortHands\languageshorthands
 \def\languageshorthands#1{}
-\usepackage{csquotes}
 \usepackage{bookmark}
 
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
@@ -184,32 +154,34 @@
   pdftitle={Презентации по Лабораторной работе 2},
   pdfauthor={Курилко-Рюмин Евгений Михайлович},
   pdflang={ru-RU},
-  hidelinks,
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
 
 \title{Презентации по Лабораторной работе 2}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
 \subtitle{Предмету Имитационное Моделирование}
 \author{Курилко-Рюмин Евгений Михайлович}
 \date{2026-03-06}
 
 \begin{document}
-\frame{\titlepage}
+\maketitle
 
-\renewcommand*\contentsname{Содержание}
-\begin{frame}[allowframebreaks]
-  \frametitle{Содержание}
-  \setcounter{tocdepth}{1}
-  \tableofcontents
-\end{frame}
 
 \section{Информация}\label{ux438ux43dux444ux43eux440ux43cux430ux446ux438ux44f}
 
-\begin{frame}{Докладчик}
-\phantomsection\label{ux434ux43eux43aux43bux430ux434ux447ux438ux43a}
-\begin{columns}[c]
-\begin{column}{0.7\linewidth}
-\begin{itemize}[<+->]
+\subsection{Докладчик}\label{ux434ux43eux43aux43bux430ux434ux447ux438ux43a}
+
+\begin{itemize}
 \tightlist
 \item
   Курилко-Рюмин Евгений Михайлович
@@ -222,18 +194,13 @@
 \item
   \url{https://emkurilkoryumin.github.io/ru/}
 \end{itemize}
-\end{column}
-
-\begin{column}{0.3\linewidth}
-\end{column}
-\end{columns}
-\end{frame}
 
 \section{Вводная
 часть}\label{ux432ux432ux43eux434ux43dux430ux44f-ux447ux430ux441ux442ux44c}
 
-\begin{frame}{Цели и задачи}
-\phantomsection\label{ux446ux435ux43bux438-ux438-ux437ux430ux434ux430ux447ux438}
+\subsection{Цели и
+задачи}\label{ux446ux435ux43bux438-ux438-ux437ux430ux434ux430ux447ux438}
+
 Иследование математической модели SIR и Лотки--Вольтерры через решение
 систем дифференциальных уравнений.
 
@@ -246,13 +213,12 @@
 3.Создать производные форматы
 
 4.Провести иследование моделей
-\end{frame}
 
 \section{Выполнение лабораторной
 работы}\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b}
 
-\begin{frame}{Модель SIR}
-\phantomsection\label{ux43cux43eux434ux435ux43bux44c-sir}
+\subsection{Модель SIR}\label{ux43cux43eux434ux435ux43bux44c-sir}
+
 \begin{figure}[H]
 
 {\centering \pandocbounded{\includegraphics[keepaspectratio]{image/1.png}}
@@ -271,10 +237,10 @@
 \caption{Реализация скрипта}
 
 \end{figure}%
-\end{frame}
 
-\begin{frame}{Модель Лотки--Вольтерры}
-\phantomsection\label{ux43cux43eux434ux435ux43bux44c-ux43bux43eux442ux43aux438ux432ux43eux43bux44cux442ux435ux440ux440ux44b}
+\subsection{Модель
+Лотки--Вольтерры}\label{ux43cux43eux434ux435ux43bux44c-ux43bux43eux442ux43aux438ux432ux43eux43bux44cux442ux435ux440ux440ux44b}
+
 \begin{figure}[H]
 
 {\centering \pandocbounded{\includegraphics[keepaspectratio]{image/9.png}}
@@ -284,10 +250,10 @@
 \caption{Реализация скрипта Лотки--Вольтерры}
 
 \end{figure}%
-\end{frame}
 
-\begin{frame}{Создание производных форматов}
-\phantomsection\label{ux441ux43eux437ux434ux430ux43dux438ux435-ux43fux440ux43eux438ux437ux432ux43eux434ux43dux44bux445-ux444ux43eux440ux43cux430ux442ux43eux432}
+\subsection{Создание производных
+форматов}\label{ux441ux43eux437ux434ux430ux43dux438ux435-ux43fux440ux43eux438ux437ux432ux43eux434ux43dux44bux445-ux444ux43eux440ux43cux430ux442ux43eux432}
+
 \begin{figure}[H]
 
 {\centering \pandocbounded{\includegraphics[keepaspectratio]{image/6.png}}
@@ -315,7 +281,6 @@
 \caption{Запуск в Jupyter}
 
 \end{figure}%
-\end{frame}
 
 \section{Результаты}\label{ux440ux435ux437ux443ux43bux44cux442ux430ux442ux44b}
 
