@@ -364,3 +364,6 @@ plugins
 .vbox/
 .config/
 vm/
+labs/lab03/release/*.zip
+labs/lab03/release/*.tar.gz
+labs/lab03/release/*.pdf
