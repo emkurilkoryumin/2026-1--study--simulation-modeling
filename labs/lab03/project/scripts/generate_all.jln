@@ -1,0 +1,46 @@
+# scripts/generate_all.jl
+using DrWatson
+@quickactivate "project"
+using Literate
+
+# Создаём папки
+mkpath("scripts/clean")
+mkpath("markdown")
+mkpath("notebooks")
+
+scripts_list = [
+    "01_daisyworld_visualization",
+    "02_daisyworld_animation",
+    "03_daisyworld_count",
+    "04_daisyworld_luminosity",
+    "05_daisyworld_param_heatmaps",
+    "06_daisyworld_param_count",
+    "07_daisyworld_param_luminosity"
+]
+
+for script in scripts_list
+    input_file = joinpath("scripts", "$script.jl")
+    
+    if isfile(input_file)
+        println("Обработка: $script")
+        
+        # Чистый скрипт
+        Literate.script(input_file, "scripts/clean"; credit=false)
+        println("  ✓ Чистый скрипт")
+        
+        # Markdown
+        Literate.markdown(input_file, "markdown"; 
+            flavor=Literate.QuartoFlavor(), credit=false)
+        println("  ✓ Markdown")
+        
+        # Jupyter notebook (БЕЗ ВЫПОЛНЕНИЯ КОДА — быстро!)
+        Literate.notebook(input_file, "notebooks"; 
+            credit=false, execute=false)
+        println("  ✓ Notebook (без выполнения)")
+        
+    else
+        println("  ✗ $script — файл не найден")
+    end
+end
+
+println("\n✅ Все производные форматы успешно сгенерированы!")

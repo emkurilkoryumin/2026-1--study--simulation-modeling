@@ -1,0 +1,27 @@
+```{julia}
+using DrWatson
+@quickactivate "project"
+using Agents
+using DataFrames
+using CairoMakie
+include(srcdir("daisyworld.jl"))
+
+
+black(a) = a.breed == :black
+white(a) = a.breed == :white
+adata = [(black, count), (white, count)]
+
+
+model = daisyworld()
+agent_df, model_df = run!(model, 100; adata)
+
+fig = Figure(size=(800, 400))
+ax = Axis(fig[1, 1]; xlabel="Время (шаги)", ylabel="Численность")
+lines!(ax, agent_df.time, agent_df.count_black; color=:black, label="Чёрные маргаритки")
+lines!(ax, agent_df.time, agent_df.count_white; color=:orange, label="Белые маргаритки")
+axislegend(ax; position=:rt)
+
+save(plotsdir("daisyworld_count.png"), fig)
+println("График сохранён: plots/daisyworld_count.png")
+```
+

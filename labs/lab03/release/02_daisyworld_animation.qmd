@@ -1,0 +1,40 @@
+```{julia}
+using DrWatson
+@quickactivate "project"
+using Agents
+using CairoMakie
+include(srcdir("daisyworld.jl"))
+
+function plot_daisyworld(model)
+    fig = Figure(size=(600, 600))
+    ax = Axis(fig[1, 1]; xlabel="X", ylabel="Y", title="Daisyworld Evolution")
+    hm = heatmap!(ax, model.temperature; colorrange=(-20, 60), colormap=:thermal)
+    Colorbar(fig[1, 2], hm; label="Temperature, °C")
+
+    for agent in allagents(model)
+        color = agent.breed == :black ? :black : :white
+        scatter!(ax, [agent.pos[2]], [agent.pos[1]]; color=color, markersize=8)
+    end
+    return fig
+end
+
+
+model = daisyworld()
+
+abmvideo(
+    plotsdir("daisyworld_animation.mp4"),
+    model;
+    title = "Daisyworld",
+    frames = 200,
+    spf = 5,
+    figure = (size=(600, 600),),
+    framerate = 15,
+    agent_color = a -> a.breed == :black ? :black : :white,
+    agent_size = 8,
+    heatarray = :temperature,
+    heatkwargs = (colorrange=(-20, 60), colormap=:thermal)
+)
+
+println("Анимация сохранена в plots/daisyworld_animation.mp4")
+```
+
