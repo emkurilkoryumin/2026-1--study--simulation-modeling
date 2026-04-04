@@ -1,0 +1,5 @@
+heterogeneous_beta = 0.12, 0.08, 0.04
+homogeneous_beta = 0.08
+overall_peak_homogeneous = 0.2413
+overall_peak_heterogeneous = 0.2387
+comment = higher beta in one city accelerates local outbreak and changes the global curve shape
