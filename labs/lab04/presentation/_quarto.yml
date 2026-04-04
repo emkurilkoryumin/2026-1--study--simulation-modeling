@@ -5,7 +5,6 @@ project:
 standalone: true
 self-contained: true
 slide-level: 2
-lang: ru-RU
 crossref:
   lof-title: Список иллюстраций
   lot-title: Список таблиц
@@ -19,20 +18,18 @@ format: # Formats
     colorlinks: false
     toc-depth: 1
     aspectratio: 169
-    section-titles: true
-    incremental: true
+    section-titles: false
+    incremental: false
     navigation: horizontal
     csquotes: true
     indent: true
     include-in-header:
       - file: _resources/tex/beamer.tex
-    babel-lang: russian
-    babel-otherlangs: english
   revealjs: # Html output
-    transition: slide
+    transition: fade
     margin: 0.2
     smaller: true
     slide-number: true
     output-ext: html
-    theme: beige
+    theme: white
     logo: _resources/image/logo_rudn.png
