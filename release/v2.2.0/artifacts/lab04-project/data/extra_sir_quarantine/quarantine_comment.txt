@@ -1,0 +1,5 @@
+quarantine_threshold = 0.08
+baseline_peak = 0.2593
+quarantine_peak = 0.2873
+baseline_death_share = 0.01
+quarantine_death_share = 0.0093

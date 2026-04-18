@@ -1,0 +1,3 @@
+scenario	peak_infected_share	peak_time	final_death_share
+homogeneous	0.24133333333333334	59	0.018666666666666668
+heterogeneous	0.23866666666666667	51	0.012666666666666666
