@@ -1,0 +1,6 @@
+infection_period = 14
+gamma = 0.0714
+theoretical_beta_threshold = 0.0714
+observed_beta_threshold = 0.07
+observed_r0_at_threshold = 0.98
+epidemic_condition = peak_share > 0.05
