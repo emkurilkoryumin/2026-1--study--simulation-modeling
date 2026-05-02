@@ -5,7 +5,7 @@ project:
 standalone: true
 self-contained: true
 slide-level: 2
-lang: ru-RU
+lang: en-US
 crossref:
   lof-title: Список иллюстраций
   lot-title: Список таблиц
@@ -26,8 +26,6 @@ format: # Formats
     indent: true
     include-in-header:
       - file: _resources/tex/beamer.tex
-    babel-lang: russian
-    babel-otherlangs: english
   revealjs: # Html output
     transition: slide
     margin: 0.2
