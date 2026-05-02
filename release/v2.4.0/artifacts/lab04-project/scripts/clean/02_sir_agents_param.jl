@@ -1,0 +1,97 @@
+using DrWatson
+@quickactivate "project"
+
+using Agents
+using DataFrames
+using Plots
+
+include(srcdir("sir_agents_model.jl"))
+
+script_name = "02_sir_agents_param"
+mkpath(plotsdir(script_name))
+mkpath(datadir(script_name))
+
+susceptible(agent) = is_susceptible(agent)
+infected(agent) = is_infected(agent)
+recovered(agent) = is_recovered(agent)
+adata = [(susceptible, count), (infected, count), (recovered, count)]
+
+scenarios = [
+    (label = "base", beta = 0.05, contacts_per_day = 10, gamma = 0.25, seed = 101),
+    (label = "low_contacts", beta = 0.05, contacts_per_day = 6, gamma = 0.25, seed = 102),
+    (label = "high_contacts", beta = 0.05, contacts_per_day = 14, gamma = 0.25, seed = 103),
+    (label = "fast_recovery", beta = 0.05, contacts_per_day = 10, gamma = 0.35, seed = 104),
+]
+
+population = 1000
+initial_infected = 10
+steps = 80
+
+summary = DataFrame(
+    scenario = String[],
+    beta = Float64[],
+    contacts_per_day = Int[],
+    gamma = Float64[],
+    r0 = Float64[],
+    peak_time = Int[],
+    peak_infected = Int[],
+    recovered_final = Int[],
+)
+
+plt = plot(
+    xlabel = "Шаг моделирования",
+    ylabel = "Число инфицированных",
+    title = "SIR-ABM: сравнение параметрических сценариев",
+    linewidth = 2,
+    size = (900, 520),
+    grid = true,
+)
+
+for scenario in scenarios
+    model = sir_model(;
+        population,
+        initial_infected,
+        beta = scenario.beta,
+        contacts_per_day = scenario.contacts_per_day,
+        gamma = scenario.gamma,
+        seed = scenario.seed,
+    )
+
+    agent_df, _ = run!(model, steps; adata = adata)
+    rename!(agent_df, Dict(
+        :count_susceptible => :susceptible,
+        :count_infected => :infected,
+        :count_recovered => :recovered,
+    ))
+
+    peak_idx = argmax(agent_df.infected)
+    peak_time = agent_df.time[peak_idx]
+    peak_infected = agent_df.infected[peak_idx]
+    recovered_final = agent_df.recovered[end]
+    r0 = scenario.contacts_per_day * scenario.beta / scenario.gamma
+
+    plot!(plt, agent_df.time, agent_df.infected; label = scenario.label)
+
+    push!(summary, (
+        scenario.label,
+        scenario.beta,
+        scenario.contacts_per_day,
+        scenario.gamma,
+        r0,
+        peak_time,
+        peak_infected,
+        recovered_final,
+    ))
+end
+
+savefig(plt, plotsdir(script_name, "sir_agents_param_compare.png"))
+
+open(datadir(script_name, "sir_param_summary.tsv"), "w") do io
+    println(io, join(names(summary), '\t'))
+    for row in eachrow(summary)
+        println(io, join(Tuple(row), '\t'))
+    end
+end
+
+println(summary)
+println("Параметрическое исследование SIR сохранено.")

@@ -1,0 +1,39 @@
+using DrWatson
+@quickactivate "project"
+
+using CSV
+using DataFrames
+using Plots
+
+include(srcdir("SIRPetri.jl"))
+using .SIRPetri
+
+mkpath(datadir())
+mkpath(plotsdir())
+
+β_range = 0.1:0.05:0.8
+γ_fixed = 0.1
+tmax = 100.0
+
+results = NamedTuple[]
+
+for β in β_range
+    net, u0, _ = build_sir_network(β, γ_fixed)
+    df = simulate_deterministic(net, u0, (0.0, tmax); saveat = 0.5, rates = [β, γ_fixed])
+
+    push!(results, (
+        β = Float64(β),
+        peak_I = maximum(df.I),
+        final_R = df.R[end],
+    ))
+end
+
+df_scan = DataFrame(results)
+CSV.write(datadir("sir_scan.csv"), df_scan)
+
+p = plot_scan(df_scan)
+savefig(p, plotsdir("sir_scan.png"))
+
+println("Сканирование β завершено. Результат в data/sir_scan.csv")
+show(df_scan; allrows = true, allcols = true)
+println()

@@ -1,0 +1,777 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+  a4paper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{setspace}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{indentfirst}
+\usepackage{float}
+\floatplacement{figure}{H}
+\IfFileExists{plex-otf.sty}{
+  %% Full TeXlive
+  \usepackage[
+    % math,
+    RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},
+    DefaultFeatures={Ligatures=Common}
+  ]{plex-otf}
+  % \usepackage[Scale=MatchUppercase]{juliamono}
+}{
+  %% TinyTeX
+  \usepackage{libertine}
+}
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{russian}
+\babelprovide[import]{english}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\usepackage[style=gost-numeric,backend=biber,langhook=extras,autolang=other*]{biblatex}
+\addbibresource{bib/cite.bib}
+\usepackage{csquotes}
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Отчёт по лабораторной работе №5},
+  pdfauthor={Курилко-Рюмин Евгений Михайлович},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Отчёт по лабораторной работе №5}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Аппарат сетей Петри: задача обедающих философов}
+\author{Курилко-Рюмин Евгений Михайлович}
+\date{}
+
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Содержание}
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\listoffigures
+\listoftables
+
+\setstretch{1.5}
+\chapter{Цель
+работы}\label{ux446ux435ux43bux44c-ux440ux430ux431ux43eux442ux44b}
+
+Целью работы является построение и исследование модели задачи обедающих
+философов в аппарате сетей Петри, сравнение классической схемы и
+варианта с арбитром, а также подготовка воспроизводимых программных
+материалов и отчёта по результатам вычислительных экспериментов.
+
+\chapter{Задание}\label{ux437ux430ux434ux430ux43dux438ux435}
+
+В ходе лабораторной работы требовалось:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Подготовить проект \texttt{Julia} в структуре \texttt{DrWatson}.
+\item
+  Реализовать модель сети Петри для задачи обедающих философов.
+\item
+  Сформировать literate-версии основных сценариев.
+\item
+  Выполнить базовый вычислительный эксперимент для двух топологий сети.
+\item
+  Провести серию запусков для набора параметров.
+\item
+  Построить графики, итоговый сравнительный отчёт и анимацию.
+\item
+  Включить результаты выполнения в итоговый документ.
+\end{enumerate}
+
+\chapter{Теоретическое
+введение}\label{ux442ux435ux43eux440ux435ux442ux438ux447ux435ux441ux43aux43eux435-ux432ux432ux435ux434ux435ux43dux438ux435}
+
+Сеть Петри представляет собой ориентированную двудольную структуру, в
+которой позиции описывают состояния системы, переходы моделируют
+события, а маркировка задаёт текущее распределение фишек по позициям.
+Такой аппарат удобен для описания параллельных процессов, конфликтов за
+ресурсы и ситуаций взаимной блокировки \autocite{murata1989petri}.
+
+Задача обедающих философов является классическим примером конкуренции за
+разделяемые ресурсы и потому естественно формулируется средствами сетей
+Петри \autocite{korolkova2026simulation}. Для каждого философа в модели
+используются состояния \texttt{Think\_i}, \texttt{Hungry\_i} и
+\texttt{Eat\_i}, а для каждой вилки вводится позиция \texttt{Fork\_i}. В
+классической сети каждый философ может одновременно перейти к захвату
+первой вилки, из-за чего система способна попасть в тупик. В
+модифицированной схеме добавляется позиция \texttt{Arbiter} с
+\texttt{N\ -\ 1} фишками; она ограничивает число одновременно
+претендующих на ресурсы философов и тем самым разрушает конфигурацию
+deadlock.
+
+В реализованном проекте рассматриваются две формы динамики:
+
+\begin{itemize}
+\tightlist
+\item
+  стохастическая симуляция по схеме Гиллеспи;
+\item
+  детерминированная \texttt{ODE}-аппроксимация как дополнительный
+  аналитический слой.
+\end{itemize}
+
+\chapter{Выполнение лабораторной
+работы}\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b}
+
+\section{Подготовка среды и исходных
+материалов}\label{ux43fux43eux434ux433ux43eux442ux43eux432ux43aux430-ux441ux440ux435ux434ux44b-ux438-ux438ux441ux445ux43eux434ux43dux44bux445-ux43cux430ux442ux435ux440ux438ux430ux43bux43eux432}
+
+Работа велась в каталоге \texttt{labs/lab05/project}. В начале была
+запущена среда \texttt{Julia}, после чего активировано окружение проекта
+и подготовлены зависимости, необходимые для моделирования, визуализации
+и генерации производных материалов.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.98\linewidth,height=\textheight,keepaspectratio]{image/1.png}
+
+}
+
+\caption{\label{fig-lab05-julia}Запуск интерпретатора Julia в каталоге
+проекта}
+
+\end{figure}%
+
+Структура лабораторной работы организована вокруг нескольких ключевых
+файлов.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\caption{Основные артефакты лабораторной
+работы}\label{tbl-lab05-files}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Файл
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Назначение
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Файл
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Назначение
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{src/DiningPhilosophers.jl} & описание сети Петри, функции
+симуляции и анализа \\
+\texttt{scripts/01\_dining\_philosophers.jl} & базовый сценарий
+сравнения двух сетей \\
+\texttt{scripts/02\_dining\_philosophers\_param.jl} & серия прогонов для
+набора параметров \\
+\texttt{scripts/dining\_philosophers\_report.jl} & построение итогового
+сравнительного графика \\
+\texttt{scripts/dining\_philosophers\_animation.jl} & генерация анимации
+изменения маркировки \\
+\texttt{scripts/generate\_all.jl} & создание \texttt{clean},
+\texttt{qmd} и \texttt{ipynb} производных файлов \\
+\end{longtable}
+
+После подготовки исходников были сгенерированы производные форматы.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.98\linewidth,height=\textheight,keepaspectratio]{image/2.png}
+
+}
+
+\caption{\label{fig-lab05-generate-start}Начало генерации
+literate-материалов для базового и параметрического сценариев}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.98\linewidth,height=\textheight,keepaspectratio]{image/8.png}
+
+}
+
+\caption{\label{fig-lab05-generate-end}Завершение генерации производных
+\texttt{jl}, \texttt{qmd} и \texttt{ipynb} файлов}
+
+\end{figure}%
+
+Из этих скриншотов видно, что из literate-скриптов были автоматически
+получены исполняемые файлы, \texttt{Quarto}-документы и
+\texttt{Jupyter\ notebook}, которые затем использовались как единый
+воспроизводимый комплект материалов.
+
+\section{Базовый вычислительный
+эксперимент}\label{ux431ux430ux437ux43eux432ux44bux439-ux432ux44bux447ux438ux441ux43bux438ux442ux435ux43bux44cux43dux44bux439-ux44dux43aux441ux43fux435ux440ux438ux43cux435ux43dux442}
+
+Базовый сценарий был реализован в файле
+\texttt{scripts/01\_dining\_philosophers.jl}. Для прямого сравнения двух
+топологий использовались одинаковые параметры:
+
+\begin{itemize}
+\tightlist
+\item
+  число философов \texttt{N\ =\ 5};
+\item
+  горизонт моделирования \texttt{tmax\ =\ 80};
+\item
+  скорость захвата первой вилки \texttt{left\_rate\ =\ 0.5};
+\item
+  скорость захвата второй вилки \texttt{right\_rate\ =\ 1.8};
+\item
+  скорость возврата вилок \texttt{put\_rate\ =\ 0.8};
+\item
+  одинаковое начальное зерно генератора случайных чисел.
+\end{itemize}
+
+Запуск основного сценария и полученная сводка показаны на
+рис.~\ref{fig-lab05-basic-run} и рис.~\ref{fig-lab05-basic-summary}.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.98\linewidth,height=\textheight,keepaspectratio]{image/3.png}
+
+}
+
+\caption{\label{fig-lab05-basic-run}Запуск основного сценария
+\texttt{01\_dining\_philosophers.jl}}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.98\linewidth,height=\textheight,keepaspectratio]{image/5.png}
+
+}
+
+\caption{\label{fig-lab05-basic-summary}Сводные показатели базового
+сравнения двух сетей}
+
+\end{figure}%
+
+Численные итоги базового прогона сведены в табл.~\ref{tbl-lab05-basic}.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1364}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1364}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1818}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1818}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1818}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1818}}@{}}
+\caption{Сводка базового вычислительного
+эксперимента}\label{tbl-lab05-basic}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Сеть
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Наличие deadlock
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Время завершения траектории
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Среднее число едящих
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Максимум \texttt{Eat}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Число голодных в финале
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Сеть
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Наличие deadlock
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Время завершения траектории
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Среднее число едящих
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Максимум \texttt{Eat}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Число голодных в финале
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Классическая & \texttt{true} & 46.33 & 0.675 & 2.0 & 5 \\
+С арбитром & \texttt{false} & 79.63 & 0.603 & 2.0 & 3 \\
+\end{longtable}
+
+Далее были построены графики эволюции маркировки по основным группам
+состояний для классической и модифицированной сети.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.92\linewidth,height=\textheight,keepaspectratio]{../project/plots/01_dining_philosophers/classic_simulation.png}
+
+}
+
+\caption{\label{fig-lab05-classic}Эволюция маркировки в классической
+сети Петри}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.92\linewidth,height=\textheight,keepaspectratio]{../project/plots/01_dining_philosophers/arbiter_simulation.png}
+
+}
+
+\caption{\label{fig-lab05-arbiter}Эволюция маркировки в сети Петри с
+арбитром}
+
+\end{figure}%
+
+На рис.~\ref{fig-lab05-classic} видно, что в классической постановке
+система сначала демонстрирует чередование состояний, однако к концу
+прогона все философы оказываются в режиме ожидания, а число свободных
+вилок обнуляется. На рис.~\ref{fig-lab05-arbiter} динамика остаётся
+живой на всём интервале: позиция \texttt{Arbiter} не допускает
+одновременного входа всех философов в опасную конфигурацию.
+
+Для более компактного сравнения использовались суммарные характеристики
+по состоянию \texttt{Eat}.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{../project/plots/01_dining_philosophers/dining_eating_compare.png}
+
+}
+
+\caption{\label{fig-lab05-eat-compare}Сравнение стохастической динамики
+числа едящих философов}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{../project/plots/01_dining_philosophers/dining_ode_compare.png}
+
+}
+
+\caption{\label{fig-lab05-ode}Детерминированная аппроксимация суммарного
+состояния \texttt{Eat}}
+
+\end{figure}%
+
+Стохастический график на рис.~\ref{fig-lab05-eat-compare} показывает
+принципиальное расхождение сценариев: в классической сети кривая уходит
+к нулю и перестаёт меняться, тогда как в сети с арбитром сохраняются
+колебания. \texttt{ODE}-аппроксимация на рис.~\ref{fig-lab05-ode}
+воспроизводит ту же качественную тенденцию и подтверждает более высокую
+устойчивость модифицированной модели.
+
+\section{Серия запусков для набора
+параметров}\label{ux441ux435ux440ux438ux44f-ux437ux430ux43fux443ux441ux43aux43eux432-ux434ux43bux44f-ux43dux430ux431ux43eux440ux430-ux43fux430ux440ux430ux43cux435ux442ux440ux43eux432}
+
+Вторая часть работы была посвящена серии стохастических прогонов, где
+изменялась скорость захвата первой вилки. Этот параметр напрямую влияет
+на то, насколько быстро философы входят в конфликт за ресурсы.
+
+Фиксированными оставались:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{N\ =\ 5};
+\item
+  \texttt{right\_rate\ =\ 1.8};
+\item
+  \texttt{put\_rate\ =\ 0.8};
+\item
+  \texttt{tmax\ =\ 80};
+\item
+  число прогонов для каждого случая \texttt{40}.
+\end{itemize}
+
+Перебирался набор значений
+
+\[
+left\_rate \in \{0.3,\;0.5,\;0.7,\;0.9,\;1.1,\;1.3\}.
+\]
+
+Командный запуск сценария \texttt{02\_dining\_philosophers\_param.jl} и
+часть его результатов представлены на рис.~\ref{fig-lab05-param-run} и
+рис.~\ref{fig-lab05-param-summary}.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.98\linewidth,height=\textheight,keepaspectratio]{image/4.png}
+
+}
+
+\caption{\label{fig-lab05-param-run}Запуск параметрического сценария
+\texttt{02\_dining\_philosophers\_param.jl}}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.98\linewidth,height=\textheight,keepaspectratio]{image/6.png}
+
+}
+
+\caption{\label{fig-lab05-param-summary}Сводная таблица параметрического
+исследования}
+
+\end{figure}%
+
+Сводные численные показатели приведены в табл.~\ref{tbl-lab05-param}.
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+\caption{Результаты серии запусков для набора
+параметров}\label{tbl-lab05-param}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+\texttt{left\_rate}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Вероятность deadlock, классическая
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Среднее время deadlock, классическая
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Среднее число едящих, классическая
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Вероятность deadlock, арбитр
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Среднее число едящих, арбитр
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+\texttt{left\_rate}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Вероятность deadlock, классическая
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Среднее время deadlock, классическая
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Среднее число едящих, классическая
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Вероятность deadlock, арбитр
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Среднее число едящих, арбитр
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0.3 & 0.325 & 41.88 & 0.641 & 0.0 & 0.673 \\
+0.5 & 0.800 & 33.20 & 0.565 & 0.0 & 0.618 \\
+0.7 & 0.975 & 18.77 & 0.501 & 0.0 & 0.543 \\
+0.9 & 1.000 & 15.05 & 0.431 & 0.0 & 0.507 \\
+1.1 & 1.000 & 9.94 & 0.419 & 0.0 & 0.479 \\
+1.3 & 1.000 & 7.44 & 0.378 & 0.0 & 0.459 \\
+\end{longtable}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.92\linewidth,height=\textheight,keepaspectratio]{../project/plots/02_dining_philosophers_param/dining_param_panel.png}
+
+}
+
+\caption{\label{fig-lab05-param-panel}Сводный графический отчёт по
+набору параметров}
+
+\end{figure}%
+
+По табл.~\ref{tbl-lab05-param} и рис.~\ref{fig-lab05-param-panel} можно
+сделать три основных вывода:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  При росте \texttt{left\_rate} классическая сеть всё быстрее переходит
+  в тупиковое состояние.
+\item
+  Одновременно уменьшается средняя активность системы, то есть число
+  философов в состоянии \texttt{Eat}.
+\item
+  Сеть с арбитром сохраняет нулевую вероятность deadlock на всём
+  исследованном диапазоне значений.
+\end{enumerate}
+
+\section{Постобработка результатов и итоговые
+артефакты}\label{ux43fux43eux441ux442ux43eux431ux440ux430ux431ux43eux442ux43aux430-ux440ux435ux437ux443ux43bux44cux442ux430ux442ux43eux432-ux438-ux438ux442ux43eux433ux43eux432ux44bux435-ux430ux440ux442ux435ux444ux430ux43aux442ux44b}
+
+После завершения вычислительных экспериментов выполнялась отдельная
+постобработка сохранённых данных. Для этого использовался скрипт
+\texttt{scripts/dining\_philosophers\_report.jl}, который строил
+итоговый сравнительный график по состояниям \texttt{Eat\_i} на основе
+ранее созданных \texttt{CSV}-файлов.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.98\linewidth,height=\textheight,keepaspectratio]{image/7.png}
+
+}
+
+\caption{\label{fig-lab05-final-script}Запуск скрипта построения
+итогового графика}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{../project/plots/dining_philosophers_report/final_report.png}
+
+}
+
+\caption{\label{fig-lab05-final}Итоговый сравнительный график по
+состояниям \texttt{Eat\_i}}
+
+\end{figure}%
+
+Именно этот график наиболее наглядно разделяет два сценария. Для
+классической сети кривые довольно быстро замирают на нуле, что отражает
+потерю живости. Для сети с арбитром сохраняются повторяющиеся пики, то
+есть возможность приёма пищи остаётся доступной до конца моделирования.
+
+Кроме того, был подготовлен анимационный файл
+\texttt{plots/dining\_philosophers\_animation/philosophers\_simulation.gif}.
+Он не используется как основной источник количественного анализа, но
+удобен для визуального просмотра того момента, когда классическая сеть
+прекращает изменять маркировку.
+
+\section{Обсуждение полученных
+результатов}\label{ux43eux431ux441ux443ux436ux434ux435ux43dux438ux435-ux43fux43eux43bux443ux447ux435ux43dux43dux44bux445-ux440ux435ux437ux443ux43bux44cux442ux430ux442ux43eux432}
+
+По сравнению с краткой схемой выполнения лабораторной работы здесь были
+разнесены три уровня анализа:
+
+\begin{itemize}
+\tightlist
+\item
+  фиксированный базовый прогон, позволяющий увидеть одиночную
+  траекторию;
+\item
+  серия запусков для набора параметров, показывающая устойчивость
+  наблюдаемого эффекта;
+\item
+  отдельная постобработка, в которой результаты сводятся к удобным
+  итоговым графикам и артефактам документации.
+\end{itemize}
+
+Такое представление отличается от эталонного образца по композиции,
+однако сохраняет его академическую логику: сначала показывается
+подготовка среды, затем ход эксперимента, после чего отдельно
+обсуждаются результаты и выводы. Добавленные терминальные скриншоты
+фиксируют реальное выполнение сценариев, генерацию literate-материалов и
+сборку итоговых графиков.
+
+\chapter{Выводы}\label{ux432ux44bux432ux43eux434ux44b}
+
+В ходе лабораторной работы задача обедающих философов была успешно
+смоделирована средствами сетей Петри, а результаты оформлены в виде
+воспроизводимого вычислительного проекта.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Реализованы классическая сеть и её модификация с арбитром.
+\item
+  Подготовлены literate-скрипты, исполняемые файлы,
+  \texttt{Jupyter\ notebook} и \texttt{Quarto}-документы.
+\item
+  Базовый сценарий показал возникновение deadlock в классической сети
+  при сохранении работоспособности модели с арбитром.
+\item
+  Серия запусков подтвердила, что увеличение скорости захвата первой
+  вилки резко ухудшает устойчивость классической сети, тогда как наличие
+  арбитра удерживает вероятность тупика на нуле.
+\item
+  Итоговые графики, таблицы, скриншоты и анимация позволяют считать
+  лабораторную работу полностью воспроизводимой и документированной.
+\end{enumerate}
+
+\chapter*{Список
+литературы}\label{ux441ux43fux438ux441ux43eux43a-ux43bux438ux442ux435ux440ux430ux442ux443ux440ux44b}
+\addcontentsline{toc}{chapter}{Список литературы}
+
+\printbibliography[heading=none]
+
+
+
+
+
+\end{document}

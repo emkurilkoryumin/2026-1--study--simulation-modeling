@@ -1,0 +1,5 @@
+scenario	beta	contacts_per_day	gamma	r0	peak_time	peak_infected	recovered_final
+base	0.05	10	0.25	2.0	22	156	777
+low_contacts	0.05	6	0.25	1.2000000000000002	33	43	325
+high_contacts	0.05	14	0.25	2.8000000000000003	14	290	920
+fast_recovery	0.05	10	0.35	1.4285714285714286	32	46	493
