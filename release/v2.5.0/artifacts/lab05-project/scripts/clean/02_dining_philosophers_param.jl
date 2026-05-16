@@ -1,0 +1,158 @@
+using DrWatson
+@quickactivate "project"
+
+using CSV
+using DataFrames
+using Plots
+using Random
+using Statistics
+
+include(srcdir("DiningPhilosophers.jl"))
+using .DiningPhilosophers
+
+script_name = "02_dining_philosophers_param"
+mkpath(plotsdir(script_name))
+mkpath(datadir(script_name))
+
+function total_tokens(df::DataFrame, columns::Vector{Symbol})
+    return vec(sum(Matrix(df[:, columns]), dims = 2))
+end
+
+function mean_or_missing(values)
+    filtered = collect(skipmissing(values))
+    return isempty(filtered) ? missing : mean(filtered)
+end
+
+N = 5
+right_rate = 1.8
+put_rate = 0.8
+left_rates = [0.3, 0.5, 0.7, 0.9, 1.1, 1.3]
+runs_per_case = 40
+tmax = 80.0
+
+runs = DataFrame(
+    topology = String[],
+    left_rate = Float64[],
+    seed = Int[],
+    deadlock = Bool[],
+    deadlock_time = Union{Missing, Float64}[],
+    mean_eaters = Float64[],
+    max_eaters = Float64[],
+)
+
+for left_rate in left_rates
+    rates = vcat(fill(left_rate, N), fill(right_rate, N), fill(put_rate, N))
+    for topology in ("classical", "arbiter")
+        for seed in 1:runs_per_case
+            net, u0, _ =
+                topology == "classical" ? build_classical_network(N) : build_arbiter_network(N)
+
+            df = simulate_stochastic(
+                net,
+                u0,
+                tmax;
+                rates,
+                rng = MersenneTwister(1_000 + 10 * round(Int, left_rate * 10) + seed),
+            )
+
+            eaters = total_tokens(df, eat_columns(N))
+            deadlock = detect_deadlock(df, net)
+            deadlock_time = deadlock ? Float64(df.time[end]) : missing
+
+            push!(runs, (
+                topology,
+                left_rate,
+                seed,
+                deadlock,
+                deadlock_time,
+                mean(eaters),
+                maximum(eaters),
+            ))
+        end
+    end
+end
+
+summary = combine(
+    groupby(runs, [:topology, :left_rate]),
+    :deadlock => (x -> mean(Float64.(x))) => :deadlock_probability,
+    :deadlock_time => mean_or_missing => :mean_deadlock_time,
+    :mean_eaters => mean => :mean_eaters,
+    :max_eaters => mean => :mean_max_eaters,
+)
+
+CSV.write(datadir(script_name, "dining_param_runs.tsv"), runs; delim = '\t')
+CSV.write(datadir(script_name, "dining_param_summary.tsv"), summary; delim = '\t')
+
+classic = summary[summary.topology .== "classical", :]
+arbiter = summary[summary.topology .== "arbiter", :]
+
+p1 = plot(
+    classic.left_rate,
+    classic.deadlock_probability;
+    label = "Классическая сеть",
+    marker = :circle,
+    linewidth = 2,
+    xlabel = "Скорость захвата первой вилки",
+    ylabel = "Вероятность deadlock",
+    title = "Вероятность взаимной блокировки",
+    ylim = (0, 1.05),
+    color = :firebrick,
+    grid = true,
+)
+plot!(
+    p1,
+    arbiter.left_rate,
+    arbiter.deadlock_probability;
+    label = "Сеть с арбитром",
+    marker = :diamond,
+    color = :royalblue,
+)
+
+p2 = plot(
+    classic.left_rate,
+    classic.mean_eaters;
+    label = "Классическая сеть",
+    marker = :circle,
+    linewidth = 2,
+    xlabel = "Скорость захвата первой вилки",
+    ylabel = "Среднее число едящих",
+    title = "Средняя активность системы",
+    color = :firebrick,
+    grid = true,
+)
+plot!(
+    p2,
+    arbiter.left_rate,
+    arbiter.mean_eaters;
+    label = "Сеть с арбитром",
+    marker = :diamond,
+    color = :royalblue,
+)
+
+p3 = plot(
+    classic.left_rate,
+    classic.mean_max_eaters;
+    label = "Классическая сеть",
+    marker = :circle,
+    linewidth = 2,
+    xlabel = "Скорость захвата первой вилки",
+    ylabel = "Средний максимум Eat",
+    title = "Максимальное число одновременно едящих",
+    color = :firebrick,
+    grid = true,
+)
+plot!(
+    p3,
+    arbiter.left_rate,
+    arbiter.mean_max_eaters;
+    label = "Сеть с арбитром",
+    marker = :diamond,
+    color = :royalblue,
+)
+
+param_panel = plot(p1, p2, p3; layout = (3, 1), size = (900, 1250))
+savefig(param_panel, plotsdir(script_name, "dining_param_panel.png"))
+
+println("Параметрическое исследование задачи обедающих философов")
+println(summary)
+println("Артефакты сохранены в plots/$(script_name) и data/$(script_name).")

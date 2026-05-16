@@ -1,3 +1,12 @@
+# [2.5.0](https://github.com/emkurilkoryumin/2026-1--study--simulation-modeling/compare/v2.4.0...v2.5.0) (2026-05-17)
+
+
+### Features
+
+* **lab07:** add discrete-event `M/M/c` and Ross models with report and presentation
+* **release:** package `release/v2.5.0` with lab07 materials for GitHub and GitVerse
+
+
 # [2.4.0](https://github.com/emkurilkoryumin/2026-1--study--simulation-modeling/compare/v2.3.0...v2.4.0) (2026-05-02)
 
 
@@ -257,6 +266,5 @@
 * **make:** add help to Makefile ([8015255](https://github.com/yamadharma/course-directory-student-template/commit/8015255d434b2a4735f0ea406ef99be4d68f8b6f))
 * **make:** add list of courses ([395c5da](https://github.com/yamadharma/course-directory-student-template/commit/395c5da4de44d792ee5ceb45f255004a0e0f7e30))
 * **script:** add script for auto-determine name of course ([10a8b58](https://github.com/yamadharma/course-directory-student-template/commit/10a8b58ccf830930dc6daf15d664582ce87913e3))
-
 
 

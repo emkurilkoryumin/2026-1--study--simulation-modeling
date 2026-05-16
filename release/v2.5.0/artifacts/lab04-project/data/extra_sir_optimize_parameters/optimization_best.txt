@@ -1,0 +1,7 @@
+constraint = mean_peak_share < 0.30
+beta = 0.03
+detection_time = 2
+death_rate = 0.005
+mean_peak_share = 0.0011
+mean_death_share = 0.0
+objective = 0.0
