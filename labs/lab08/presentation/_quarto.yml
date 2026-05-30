@@ -26,8 +26,7 @@ format: # Formats
     indent: true
     include-in-header:
       - file: _resources/tex/beamer.tex
-    babel-lang: russian
-    babel-otherlangs: english
+    babel-lang: english
   revealjs: # Html output
     transition: slide
     margin: 0.2
