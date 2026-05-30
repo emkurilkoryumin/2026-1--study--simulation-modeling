@@ -4,6 +4,8 @@ project:
 
 standalone: true
 self-contained: true
+execute:
+  enabled: false
 
 ## Julia support
 # engine: julia
