@@ -1,0 +1,10 @@
+scenario,parameter,value,beta,contacts,gamma,recovery_mode,peak_infected,peak_time,final_susceptible,final_infected,final_recovered,affected_share,events
+sensitivity,beta,0.03,0.03,10.0,0.25,exponential,20,2.4163448689108513,860,4,136,0.14,266
+sensitivity,beta,0.05,0.05,10.0,0.25,exponential,147,22.6252663188003,273,14,713,0.727,1430
+sensitivity,beta,0.07,0.07,10.0,0.25,exponential,265,10.10927450646678,75,3,922,0.925,1837
+sensitivity,contacts,6.0,0.05,6.0,0.25,exponential,31,9.252557278873025,836,9,155,0.164,309
+sensitivity,contacts,10.0,0.05,10.0,0.25,exponential,151,14.935893463141932,246,8,746,0.754,1490
+sensitivity,contacts,14.0,0.05,14.0,0.25,exponential,285,11.172718449656935,86,1,913,0.914,1817
+sensitivity,gamma,0.15,0.05,10.0,0.15,exponential,351,14.608228553227974,48,20,932,0.952,1874
+sensitivity,gamma,0.25,0.05,10.0,0.25,exponential,194,15.560442082028626,230,14,756,0.77,1516
+sensitivity,gamma,0.4,0.05,10.0,0.4,exponential,51,19.667126022807096,629,13,358,0.371,719

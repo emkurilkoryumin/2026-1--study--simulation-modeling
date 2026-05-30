@@ -1,0 +1,1433 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+  a4paper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{setspace}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{indentfirst}
+\usepackage{float}
+\floatplacement{figure}{H}
+\IfFileExists{plex-otf.sty}{
+  %% Full TeXlive
+  \usepackage[
+    % math,
+    RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},
+    DefaultFeatures={Ligatures=Common}
+  ]{plex-otf}
+  % \usepackage[Scale=MatchUppercase]{juliamono}
+}{
+  %% TinyTeX
+  \usepackage{libertine}
+}
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{russian}
+\babelprovide[import]{english}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\usepackage[style=gost-numeric,backend=biber,langhook=extras,autolang=other*]{biblatex}
+\addbibresource{bib/cite.bib}
+\usepackage{csquotes}
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Отчёта по лабораторной работе 3},
+  pdfauthor={Курилко-Рюмин Евгений Михайлович},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Отчёта по лабораторной работе 3}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Агентное Моделирование}
+\author{Курилко-Рюмин Евгений Михайлович}
+\date{}
+
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Содержание}
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\listoffigures
+\listoftables
+
+\setstretch{1.5}
+\chapter{Цель
+работы}\label{ux446ux435ux43bux44c-ux440ux430ux431ux43eux442ux44b}
+
+Изучить основы агентного моделирования (Agent-Based Modeling, ABM) на
+примере модели Daisyworld, реализованной с использованием фреймворка
+Agents.jl в языке Julia. Освоить принципы эмерджентности, автономности
+агентов и саморегуляции системы.
+
+\chapter{Задание}\label{ux437ux430ux434ux430ux43dux438ux435}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Создать рабочий каталог проекта DrWatson для размещения кода модели
+  Daisyworld.
+\item
+  Установить необходимые Julia-пакеты (Agents, Plots, DrWatson, Literate
+  и др.).
+\item
+  Реализовать модель Daisyworld на основе фреймворка Agents.jl.
+\item
+  Выполнить визуализацию состояния модели в виде тепловых карт на шагах
+  0, 5, 40.
+\item
+  Создать анимацию динамики модели.
+\item
+  Построить графики динамики численности маргариток.
+\item
+  Реализовать сценарий изменения солнечной светимости (luminosity ramp)
+  и построить трёхпанельные графики полной динамики.
+\item
+  Выполнить параметрическое исследование с варьированием начальной доли
+  белых маргариток (init\_white) и максимального возраста (max\_age).
+\item
+  Преобразовать рабочий код в литературный стиль с разметкой
+  Literate.jl.
+\item
+  Сгенерировать из литературного кода три производных формата: чистый
+  .jl-скрипт, Jupyter notebook .ipynb, Markdown-документацию .qmd.
+\end{enumerate}
+
+\chapter{Теоретическое
+введение}\label{ux442ux435ux43eux440ux435ux442ux438ux447ux435ux441ux43aux43eux435-ux432ux432ux435ux434ux435ux43dux438ux435}
+
+Агентное моделирование (Agent-Based Modeling, ABM) --- это
+вычислительный метод исследования сложных систем, в котором поведение
+системы возникает из взаимодействия множества автономных сущностей,
+называемых агентами. Вместо описания системы глобальными уравнениями,
+моделируется каждая индивидуальная единица и правила её поведения.
+
+\textbf{Ключевые принципы АВМ:}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Эмерджентность} --- глобальное поведение системы возникает из
+  локальных взаимодействий агентов и не задаётся явно.
+\item
+  \textbf{Автономность} --- каждый агент действует независимо, на основе
+  своих правил и локальной информации.
+\item
+  \textbf{Гетерогенность} --- агенты могут различаться по своим
+  характеристикам и правилам поведения.
+\item
+  \textbf{Локальность} --- агенты взаимодействуют только с ближайшими
+  соседями.
+\end{itemize}
+
+\section{Модель
+Daisyworld}\label{ux43cux43eux434ux435ux43bux44c-daisyworld}
+
+Модель Daisyworld была предложена Джеймсом Лавлоком и Эндрю Уотсоном в
+1983 году как упрощённая демонстрация гипотезы Геи --- идеи о том, что
+биосфера Земли может саморегулироваться, поддерживая условия,
+благоприятные для жизни.
+
+\textbf{Компоненты модели:}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Агенты:} маргаритки двух видов --- чёрные (низкое альбедо,
+  поглощают тепло) и белые (высокое альбедо, отражают тепло).
+\item
+  \textbf{Среда:} двумерная решётка размером 30×30 клеток.
+\item
+  \textbf{Динамика:} маргаритки размножаются на соседние пустые клетки с
+  вероятностью, зависящей от локальной температуры. Стареют и умирают по
+  достижении максимального возраста.
+\item
+  \textbf{Саморегуляция:} при повышении температуры белые маргаритки
+  получают преимущество (охлаждают планету), при понижении --- чёрные
+  (нагревают планету).
+\end{itemize}
+
+\chapter{Выполнение лабораторной
+работы}\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b}
+
+\section{Настройка
+окружения}\label{ux43dux430ux441ux442ux440ux43eux439ux43aux430-ux43eux43aux440ux443ux436ux435ux43dux438ux44f}
+
+\subsection{Запуск Julia и загрузка
+DrWatson}\label{ux437ux430ux43fux443ux441ux43a-julia-ux438-ux437ux430ux433ux440ux443ux437ux43aux430-drwatson}
+
+Запускаем интерпретатор Julia
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/1.png}
+
+}
+
+\caption{\label{fig-drwatson}Запускаем Julia}
+
+\end{figure}%
+
+Затем подключаем пакет DrWatson, предназначенный для организации
+воспроизводимых научных вычислений. DrWatson предоставляет стандартную
+структуру каталогов проекта и удобные функции навигации
+(\texttt{plotsdir()}, \texttt{scriptsdir()}, \texttt{srcdir()}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/2.png}
+
+}
+
+\caption{\label{fig-drwatson}Загрузка пакета DrWatson}
+
+\end{figure}%
+
+\subsection{Создание проекта
+DrWatson}\label{ux441ux43eux437ux434ux430ux43dux438ux435-ux43fux440ux43eux435ux43aux442ux430-drwatson}
+
+Инициализируем проект с помощью DrWatson который автоматически создает
+каталоги scripts/, src/, data/, plots/ и другие.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/2.png}
+
+}
+
+\caption{\label{fig-drwatson}Создание проекта}
+
+\end{figure}%
+
+\#\#\#Установка пакетов
+
+Устанавливаем пакеты путем применения следующий команды
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{using} \BuiltInTok{Pkg}
+\BuiltInTok{Pkg}\NormalTok{.}\FunctionTok{add}\NormalTok{([}
+       \StringTok{"DrWatson"}\NormalTok{,}\StringTok{"Agents"}\NormalTok{,}\StringTok{"CairoMakie"}
+        \StringTok{"Literate"}\NormalTok{,}\StringTok{"IJulia"}\NormalTok{,}
+\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/3.png}
+
+}
+
+\caption{\label{fig-drwatson}Установленые пакеты}
+
+\end{figure}%
+
+\section{Модель
+Daisyworld}\label{ux43cux43eux434ux435ux43bux44c-daisyworld-1}
+
+Основной код модели размещён в файле \texttt{src/daisyworld.jl}. Модель
+реализована на основе фреймворка Agents
+
+\subsection{Определение
+агента}\label{ux43eux43fux440ux435ux434ux435ux43bux435ux43dux438ux435-ux430ux433ux435ux43dux442ux430}
+
+Каждая маргаритка описывается структурой \texttt{Daisy}, содержащей
+идентификатор, позицию на решётке, породу (\texttt{:black} или
+\texttt{:white}) и возраст:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{@agent} \KeywordTok{struct} \FunctionTok{Daisy}\NormalTok{(GridAgent\{}\FloatTok{2}\NormalTok{\})}
+\NormalTok{    breed}\OperatorTok{::}\DataTypeTok{Symbol}
+\NormalTok{    age}\OperatorTok{::}\DataTypeTok{Int}
+\NormalTok{    albedo}\OperatorTok{::}\DataTypeTok{Float64}
+\KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Инициализация
+модели}\label{ux438ux43dux438ux446ux438ux430ux43bux438ux437ux430ux446ux438ux44f-ux43cux43eux434ux435ux43bux438}
+
+Функция инициализации создаёт решётку, случайно размещает маргаритки
+заданных долей и рассчитывает начальные температуры:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{function} \FunctionTok{daisyworld}\NormalTok{(;}
+\NormalTok{    gridsize }\OperatorTok{=}\NormalTok{ (}\FloatTok{30}\NormalTok{, }\FloatTok{30}\NormalTok{),}
+\NormalTok{    init\_black }\OperatorTok{=} \FloatTok{0.2}\NormalTok{,}
+\NormalTok{    init\_white }\OperatorTok{=} \FloatTok{0.2}\NormalTok{,}
+\NormalTok{    albedo\_black }\OperatorTok{=} \FloatTok{0.25}\NormalTok{,}
+\NormalTok{    albedo\_white }\OperatorTok{=} \FloatTok{0.75}\NormalTok{,}
+\NormalTok{    surface\_albedo }\OperatorTok{=} \FloatTok{0.4}\NormalTok{,}
+\NormalTok{    solar\_luminosity }\OperatorTok{=} \FloatTok{1.0}\NormalTok{,}
+\NormalTok{    solar\_change }\OperatorTok{=} \FloatTok{0.005}\NormalTok{,}
+\NormalTok{    max\_age }\OperatorTok{=} \FloatTok{25}\NormalTok{,}
+\NormalTok{    scenario }\OperatorTok{=} \OperatorTok{:}\NormalTok{default,}
+\NormalTok{    seed }\OperatorTok{=} \FloatTok{165}\NormalTok{,}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Шаг
+агента}\label{ux448ux430ux433-ux430ux433ux435ux43dux442ux430}
+
+На каждом шаге симуляции каждая маргаритка:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Увеличивает свой возраст на 1.
+\item
+  Если возраст превышает \texttt{max\_age} --- погибает, клетка
+  освобождается.
+\item
+  Иначе --- пытается произвести потомство на случайную соседнюю пустую
+  клетку:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    вычисляется локальная температура по формуле
+    (\textbf{?@eq-t-local});
+  \item
+    вычисляется порог прорастания по формуле
+    (\textbf{?@eq-seed-threshold});
+  \item
+    если \(p > 0\) и случайное число меньше \(p\), создаётся новая
+    маргаритка.
+  \end{itemize}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{function} \FunctionTok{daisy\_step!}\NormalTok{(agent, model)}
+\NormalTok{    agent.age }\OperatorTok{+=} \FloatTok{1}
+    \ControlFlowTok{if}\NormalTok{ agent.age }\OperatorTok{\textgreater{}=}\NormalTok{ model.max\_age}
+        \FunctionTok{remove\_agent!}\NormalTok{(agent, model)}
+\NormalTok{        model.temperature[agent.pos}\OperatorTok{...}\NormalTok{] }\OperatorTok{=} \FunctionTok{calc\_temperature}\NormalTok{(}
+\NormalTok{            model.surface\_albedo, model}
+\NormalTok{        )}
+        \ControlFlowTok{return}
+    \ControlFlowTok{end}
+    \CommentTok{\#\# Попытка размножения}
+\NormalTok{    empty\_neighbors }\OperatorTok{=} \FunctionTok{collect}\NormalTok{(}
+        \FunctionTok{nearby\_positions}\NormalTok{(agent, model, }\FloatTok{1}\NormalTok{; filter}\OperatorTok{=}\NormalTok{isempty)}
+\NormalTok{    )}
+    \ControlFlowTok{if}\NormalTok{ !}\FunctionTok{isempty}\NormalTok{(empty\_neighbors)}
+\NormalTok{        T }\OperatorTok{=}\NormalTok{ model.temperature[agent.pos}\OperatorTok{...}\NormalTok{]}
+\NormalTok{        seed\_threshold }\OperatorTok{=} \FloatTok{0.1457} \OperatorTok{*}\NormalTok{ T }\OperatorTok{{-}}
+            \FloatTok{0.0032} \OperatorTok{*}\NormalTok{ T}\OperatorTok{\^{}}\FloatTok{2} \OperatorTok{{-}} \FloatTok{0.6443}
+        \ControlFlowTok{if}\NormalTok{ seed\_threshold }\OperatorTok{\textgreater{}} \FloatTok{0} \OperatorTok{\&\&}
+                \FunctionTok{rand}\NormalTok{(}\FunctionTok{abmrng}\NormalTok{(model)) }\OperatorTok{\textless{}}\NormalTok{ seed\_threshold}
+\NormalTok{            pos }\OperatorTok{=} \FunctionTok{rand}\NormalTok{(}\FunctionTok{abmrng}\NormalTok{(model), empty\_neighbors)}
+            \FunctionTok{add\_agent!}\NormalTok{(pos, Daisy, model,}
+\NormalTok{                agent.breed, }\FloatTok{0}\NormalTok{, agent.albedo)}
+\NormalTok{            model.temperature[pos}\OperatorTok{...}\NormalTok{] }\OperatorTok{=}
+                \FunctionTok{calc\_temperature}\NormalTok{(agent.albedo, model)}
+        \ControlFlowTok{end}
+    \ControlFlowTok{end}
+\KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Шаг
+модели}\label{ux448ux430ux433-ux43cux43eux434ux435ux43bux438}
+
+На каждом шаге модели обновляется солнечная светимость (в сценарии
+\texttt{ramp}) и пересчитываются температуры всех клеток:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{function} \FunctionTok{model\_step!}\NormalTok{(model)}
+    \ControlFlowTok{if}\NormalTok{ model.scenario }\OperatorTok{==} \OperatorTok{:}\NormalTok{ramp}
+\NormalTok{        model.solar\_luminosity }\OperatorTok{+=}\NormalTok{ model.solar\_change}
+        \ControlFlowTok{if}\NormalTok{ model.solar\_luminosity }\OperatorTok{\textgreater{}=} \FloatTok{2.0} \OperatorTok{||}
+\NormalTok{                model.solar\_luminosity }\OperatorTok{\textless{}=} \FloatTok{0.5}
+\NormalTok{            model.solar\_change }\OperatorTok{=} \OperatorTok{{-}}\NormalTok{model.solar\_change}
+        \ControlFlowTok{end}
+    \ControlFlowTok{end}
+    \ControlFlowTok{for}\NormalTok{ pos }\KeywordTok{in} \FunctionTok{positions}\NormalTok{(model)}
+        \ControlFlowTok{if} \FunctionTok{isempty}\NormalTok{(pos, model)}
+\NormalTok{            model.temperature[pos}\OperatorTok{...}\NormalTok{] }\OperatorTok{=} \FunctionTok{calc\_temperature}\NormalTok{(}
+\NormalTok{                model.surface\_albedo, model}
+\NormalTok{            )}
+        \ControlFlowTok{end}
+    \ControlFlowTok{end}
+\KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+\#\#Визуализация модели (Базовая)
+
+Скрипрт scripts/daisyworld.jl является базовой визуализацией состояния
+модели в виде тепловых карт. Скрипт создает модель с папаметрами и
+строит тепловую карту,где цвет клетки определяется типом маргаритки:
+чёрные маргаритки отображаются тёмным цветом, белые --- светлым, пустые
+клетки --- промежуточным оттенком.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{using} \BuiltInTok{DrWatson}
+\PreprocessorTok{@quickactivate} \StringTok{"project"}
+\ImportTok{using} \BuiltInTok{Agents}
+\FunctionTok{include}\NormalTok{(}\FunctionTok{srcdir}\NormalTok{(}\StringTok{"daisyworld.jl"}\NormalTok{))}
+\ImportTok{using} \BuiltInTok{CairoMakie}
+
+\NormalTok{model }\OperatorTok{=} \FunctionTok{daisyworld}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ step }\KeywordTok{in}\NormalTok{ [}\FloatTok{0}\NormalTok{, }\FloatTok{1}\NormalTok{, }\FloatTok{5}\NormalTok{, }\FloatTok{40}\NormalTok{]}
+    \FunctionTok{run!}\NormalTok{(model, step)}
+\NormalTok{    fig }\OperatorTok{=} \FunctionTok{plot\_daisyworld}\NormalTok{(model)}
+\NormalTok{    fname }\OperatorTok{=} \StringTok{"daisy\_step}\SpecialCharTok{$}\NormalTok{(}\FunctionTok{lpad}\NormalTok{(step, }\FloatTok{3}\NormalTok{, }\CharTok{\textquotesingle{}0\textquotesingle{}}\NormalTok{))}\StringTok{.png"}
+    \FunctionTok{save}\NormalTok{(}\FunctionTok{plotsdir}\NormalTok{(fname), fig)}
+\ControlFlowTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+На изображенеии ниже представлен запуск скрипта
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{image/7.png}}
+
+}
+
+\caption{Запуск скрипта daisyworld.jl}
+
+\end{figure}%
+
+На показана тепловая карта модели на шаге 0 --- начальное состояние с
+равномерно распределёнными маргаритками (20\% чёрных и 20\% белых).
+Видно случайное размещение маргариток обоих видов по решётке.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_step000.png}
+
+}
+
+\caption{\label{fig-daisy-step001}Тепловая карта Daisyworld на шаге 0
+(начальное состояние)}
+
+\end{figure}%
+
+На рис.~\ref{fig-daisy-step005} показано состояние модели после 5 шагов.
+Маргаритки начали размножаться, образуя кластеры --- группы клеток
+одного вида. Чёрные маргаритки нагревают окружающее пространство,
+создавая благоприятные условия для роста, а белые --- охлаждают.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_step005.png}
+
+}
+
+\caption{\label{fig-daisy-step005}Тепловая карта Daisyworld на шаге 5}
+
+\end{figure}%
+
+На рис.~\ref{fig-daisy-step040} показано состояние после 40 шагов.
+Система достигла динамического равновесия: маргаритки обоих видов заняли
+значительную часть поверхности, формируя устойчивые пространственные
+паттерны. Видна саморегуляция --- температура планеты поддерживается в
+пределах, благоприятных для жизни маргариток.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_step040.png}
+
+}
+
+\caption{\label{fig-daisy-step040}Тепловая карта Daisyworld на шаге 40
+(динамическое равновесие)}
+
+\end{figure}%
+
+\subsection{Цикл литературного
+программирования}\label{ux446ux438ux43aux43b-ux43bux438ux442ux435ux440ux430ux442ux443ux440ux43dux43eux433ux43e-ux43fux440ux43eux433ux440ux430ux43cux43cux438ux440ux43eux432ux430ux43dux438ux44f}
+
+Из литературного скрипта \texttt{daisyworld.jl} сгенерированы три
+производных формата с помощью Literate.jl \autocite{literate_jl}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Чистый скрипт} (\texttt{Literate.script}) --- на
+  рис.~\ref{fig-daisyworld-clean} показан результат генерации
+  \texttt{.jl}-файла без документационных комментариев.
+\item
+  \textbf{Jupyter notebook} (\texttt{Literate.notebook}) --- на
+  рис.~\ref{fig-daisyworld-clean} показан результат генерации
+  \texttt{.ipynb}-файла.
+\item
+  \textbf{Markdown-документация} (\texttt{Literate.markdown}) --- на
+  рис.~\ref{fig-daisyworld-clean} показан результат генерации
+  \texttt{.md}-файла.
+\end{enumerate}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/4.png}
+
+}
+
+\caption{\label{fig-daisyworld-clean}Генерация всех трех форматов}
+
+\end{figure}%
+
+\section{Анимация динамики
+модели}\label{ux430ux43dux438ux43cux430ux446ux438ux44f-ux434ux438ux43dux430ux43cux438ux43aux438-ux43cux43eux434ux435ux43bux438}
+
+Второй скрипт создаёт анимацию работы модели Daisyworld, позволяющую
+наблюдать процесс в динамике. Используется функция \texttt{record} из
+CairoMakie для покадровой записи:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{using} \BuiltInTok{DrWatson}
+\PreprocessorTok{@quickactivate} \StringTok{"project"}
+\ImportTok{using} \BuiltInTok{Agents}
+\FunctionTok{include}\NormalTok{(}\FunctionTok{srcdir}\NormalTok{(}\StringTok{"daisyworld.jl"}\NormalTok{))}
+\ImportTok{using} \BuiltInTok{CairoMakie}
+
+\NormalTok{model }\OperatorTok{=} \FunctionTok{daisyworld}\NormalTok{()}
+\NormalTok{frames }\OperatorTok{=} \FloatTok{100}
+\FunctionTok{record}\NormalTok{(}\FunctionTok{plotsdir}\NormalTok{(}\StringTok{"daisyworld\_animation.mp4"}\NormalTok{), }\FloatTok{1}\OperatorTok{:}\NormalTok{frames) }\ControlFlowTok{do}\NormalTok{ i}
+    \FunctionTok{run!}\NormalTok{(model, }\FloatTok{1}\NormalTok{)}
+    \FunctionTok{plot\_daisyworld}\NormalTok{(model)}
+\ControlFlowTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+На рис.~\ref{fig-animate-run} показан запуск скрипта анимации.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/01.png}
+
+}
+
+\caption{\label{fig-animate-run}Запуск скрипта анимации Daisyworld}
+
+\end{figure}%
+
+На рис.~\ref{fig-animate-output} показан результат --- сохранённый файл
+анимации.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/333.png}
+
+}
+
+\caption{\label{fig-animate-output}Результат работы скрипта анимации}
+
+\end{figure}%
+
+\section{Динамика численности
+маргариток}\label{ux434ux438ux43dux430ux43cux438ux43aux430-ux447ux438ux441ux43bux435ux43dux43dux43eux441ux442ux438-ux43cux430ux440ux433ux430ux440ux438ux442ux43eux43a}
+
+Третий скрипт \texttt{scripts/daisyworld-count.jl} строит график
+динамики численности маргариток обоих видов во времени. Для сбора данных
+используется функция \texttt{run!} с агрегирующими функциями:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{using} \BuiltInTok{DrWatson}
+\PreprocessorTok{@quickactivate} \StringTok{"project"}
+\ImportTok{using} \BuiltInTok{Agents}
+\FunctionTok{include}\NormalTok{(}\FunctionTok{srcdir}\NormalTok{(}\StringTok{"daisyworld.jl"}\NormalTok{))}
+\ImportTok{using} \BuiltInTok{CairoMakie}
+
+\NormalTok{model }\OperatorTok{=} \FunctionTok{daisyworld}\NormalTok{()}
+\FunctionTok{black}\NormalTok{(a) }\OperatorTok{=}\NormalTok{ a.breed }\OperatorTok{==} \OperatorTok{:}\NormalTok{black}
+\FunctionTok{white}\NormalTok{(a) }\OperatorTok{=}\NormalTok{ a.breed }\OperatorTok{==} \OperatorTok{:}\NormalTok{white}
+\NormalTok{adata }\OperatorTok{=}\NormalTok{ [(black, count), (white, count)]}
+\NormalTok{adf, \_ }\OperatorTok{=} \FunctionTok{run!}\NormalTok{(model, }\FloatTok{100}\NormalTok{; adata)}
+
+\NormalTok{fig }\OperatorTok{=} \FunctionTok{Figure}\NormalTok{(size }\OperatorTok{=}\NormalTok{ (}\FloatTok{800}\NormalTok{, }\FloatTok{400}\NormalTok{))}
+\NormalTok{ax }\OperatorTok{=} \FunctionTok{Axis}\NormalTok{(fig[}\FloatTok{1}\NormalTok{, }\FloatTok{1}\NormalTok{];}
+\NormalTok{    xlabel }\OperatorTok{=} \StringTok{"Step"}\NormalTok{, ylabel }\OperatorTok{=} \StringTok{"Count"}\NormalTok{)}
+\FunctionTok{lines!}\NormalTok{(ax, adf.time, adf.count\_black;}
+\NormalTok{    label }\OperatorTok{=} \StringTok{"Black"}\NormalTok{, color }\OperatorTok{=} \OperatorTok{:}\NormalTok{black)}
+\FunctionTok{lines!}\NormalTok{(ax, adf.time, adf.count\_white;}
+\NormalTok{    label }\OperatorTok{=} \StringTok{"White"}\NormalTok{, color }\OperatorTok{=} \OperatorTok{:}\NormalTok{orange)}
+\FunctionTok{axislegend}\NormalTok{(ax)}
+\FunctionTok{save}\NormalTok{(}\FunctionTok{plotsdir}\NormalTok{(}\StringTok{"daisy\_count\_plot.png"}\NormalTok{), fig)}
+\end{Highlighting}
+\end{Shaded}
+
+На рис.~\ref{fig-count-plot} представлен график динамики численности
+маргариток. Видно, как после начального размещения (по 20\% каждого
+вида, т.е. по \(\sim 180\) маргариток из 900 клеток) популяции быстро
+растут и достигают динамического равновесия. Чёрные маргаритки, нагревая
+поверхность, создают условия для собственного роста, но при этом
+повышают общую температуру, что стимулирует рост белых маргариток,
+охлаждающих среду. В результате устанавливается баланс между двумя
+видами.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_count.png}
+
+}
+
+\caption{\label{fig-count-plot}График динамики численности чёрных и
+белых маргариток}
+
+\end{figure}%
+
+\section{Полная динамика с изменением светимости (luminosity
+ramp)}\label{ux43fux43eux43bux43dux430ux44f-ux434ux438ux43dux430ux43cux438ux43aux430-ux441-ux438ux437ux43cux435ux43dux435ux43dux438ux435ux43c-ux441ux432ux435ux442ux438ux43cux43eux441ux442ux438-luminosity-ramp}
+
+Четвёртый скрипт \texttt{scripts/daisyworld-luminosity.jl} реализует
+сценарий \texttt{ramp}, при котором солнечная светимость циклически
+изменяется от 0.5 до 2.0 и обратно с шагом 0.005 за такт. Это позволяет
+наблюдать, как биосфера (маргаритки) регулирует температуру планеты в
+ответ на внешние изменения.
+
+Скрипт строит трёхпанельный график (рис.~\ref{fig-luminosity-plot}):
+
+\begin{itemize}
+\tightlist
+\item
+  верхняя панель --- динамика численности чёрных и белых маргариток;
+\item
+  средняя панель --- средняя температура поверхности планеты;
+\item
+  нижняя панель --- солнечная светимость.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OperatorTok{=} \FunctionTok{daisyworld}\NormalTok{(; scenario }\OperatorTok{=} \OperatorTok{:}\NormalTok{ramp)}
+\NormalTok{adata }\OperatorTok{=}\NormalTok{ [(black, count), (white, count)]}
+\NormalTok{mdata }\OperatorTok{=}\NormalTok{ [}\OperatorTok{:}\NormalTok{solar\_luminosity, }\OperatorTok{:}\NormalTok{global\_temperature]}
+\NormalTok{adf, mdf }\OperatorTok{=} \FunctionTok{run!}\NormalTok{(model, }\FloatTok{1000}\NormalTok{; adata, mdata)}
+\end{Highlighting}
+\end{Shaded}
+
+На рис.~\ref{fig-luminosity-run} показан запуск скрипта.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/03.png}
+
+}
+
+\caption{\label{fig-luminosity-run}Запуск скрипта
+daisyworld-luminosity.jl}
+
+\end{figure}%
+
+На рис.~\ref{fig-luminosity-plot} представлен трёхпанельный график
+полной динамики. Ключевое наблюдение: при наличии маргариток температура
+планеты остаётся значительно стабильнее, чем без них. При росте
+светимости белые маргаритки доминируют (отражая излучение и охлаждая
+планету), при снижении --- доминируют чёрные (поглощая излучение и
+нагревая планету). Это наглядно демонстрирует механизм биологической
+саморегуляции, лежащий в основе гипотезы Геи \autocite{lovelock_1983}.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_luminosity.png}
+
+}
+
+\caption{\label{fig-luminosity-plot}Трёхпанельный график полной динамики
+Daisyworld: численность маргариток, температура и светимость}
+
+\end{figure}%
+
+\section{Базовая визуализация с параметрическим
+исследованием}\label{ux431ux430ux437ux43eux432ux430ux44f-ux432ux438ux437ux443ux430ux43bux438ux437ux430ux446ux438ux44f-ux441-ux43fux430ux440ux430ux43cux435ux442ux440ux438ux447ux435ux441ux43aux438ux43c-ux438ux441ux441ux43bux435ux434ux43eux432ux430ux43dux438ux435ux43c}
+
+Пятый скрипт \texttt{scripts/daisyworld\_\_param.jl} расширяет базовую
+визуализацию, варьируя два ключевых параметра модели: начальную долю
+белых маргариток (\texttt{init\_white}) и максимальный возраст
+маргариток (\texttt{max\_age}). Это позволяет исследовать, как начальные
+условия и продолжительность жизни агентов влияют на пространственное
+распределение маргариток.
+
+Варьируемые параметры представлены в табл.~\ref{tbl-param-heatmap}.
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{Параметры, варьируемые при визуализации тепловых
+карт}\label{tbl-param-heatmap}\tabularnewline
+\toprule\noalign{}
+Параметр & Значения \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Параметр & Значения \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{init\_white} & 0.2, 0.8 \\
+\texttt{max\_age} & 25, 40 \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{using} \BuiltInTok{DrWatson}
+\PreprocessorTok{@quickactivate} \StringTok{"project"}
+\ImportTok{using} \BuiltInTok{Agents}
+\FunctionTok{include}\NormalTok{(}\FunctionTok{srcdir}\NormalTok{(}\StringTok{"daisyworld.jl"}\NormalTok{))}
+\ImportTok{using} \BuiltInTok{CairoMakie}
+
+\ControlFlowTok{for}\NormalTok{ init\_white }\KeywordTok{in}\NormalTok{ [}\FloatTok{0.2}\NormalTok{, }\FloatTok{0.8}\NormalTok{], max\_age }\KeywordTok{in}\NormalTok{ [}\FloatTok{25}\NormalTok{, }\FloatTok{40}\NormalTok{]}
+\NormalTok{    params }\OperatorTok{=} \PreprocessorTok{@strdict}\NormalTok{ init\_white max\_age}
+\NormalTok{    model }\OperatorTok{=} \FunctionTok{daisyworld}\NormalTok{(; init\_white, max\_age)}
+    \ControlFlowTok{for}\NormalTok{ step }\KeywordTok{in}\NormalTok{ [}\FloatTok{0}\NormalTok{, }\FloatTok{1}\NormalTok{, }\FloatTok{4}\NormalTok{, }\FloatTok{40}\NormalTok{]}
+        \FunctionTok{run!}\NormalTok{(model, step }\OperatorTok{==} \FloatTok{0}\NormalTok{ ? }\FloatTok{0} \OperatorTok{:}\NormalTok{ step)}
+\NormalTok{        fig }\OperatorTok{=} \FunctionTok{plot\_daisyworld}\NormalTok{(model)}
+\NormalTok{        fname }\OperatorTok{=} \FunctionTok{savename}\NormalTok{(}\StringTok{"daisyworld"}\NormalTok{, params,}
+            \StringTok{"png"}\NormalTok{; connector}\OperatorTok{=}\StringTok{"\_"}\NormalTok{)}
+\NormalTok{        fname }\OperatorTok{*=} \StringTok{"\_step}\SpecialCharTok{$}\NormalTok{(}\FunctionTok{lpad}\NormalTok{(step, }\FloatTok{2}\NormalTok{, }\CharTok{\textquotesingle{}0\textquotesingle{}}\NormalTok{))}\StringTok{.png"}
+        \FunctionTok{save}\NormalTok{(}\FunctionTok{plotsdir}\NormalTok{(fname), fig)}
+    \ControlFlowTok{end}
+\ControlFlowTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+На рис.~\ref{fig-param-run} показан запуск скрипта.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/04.png}
+
+}
+
+\caption{\label{fig-param-run}Запуск скрипта daisyworld\_\_param.jl}
+
+\end{figure}%
+
+\subsection{Комбинация: init\_white=0.2,
+max\_age=25}\label{ux43aux43eux43cux431ux438ux43dux430ux446ux438ux44f-init_white0.2-max_age25}
+
+При малой начальной доле белых маргариток (20\%) и стандартном
+максимальном возрасте (25 тактов) модель демонстрирует равномерное
+распределение обоих видов. Маргаритки обоих видов представлены в равных
+пропорциях, и система быстро достигает равновесия.
+
+На \textbf{?@fig-param-w02-a25-s01} показано начальное состояние:
+маргаритки распределены случайно, чёрные и белые --- примерно поровну.
+
+!{[}init\_white=0.2, max\_age=25: шаг 0{]} (начальное
+состояние){]}(image/daisyworld\_iw0.2\_ma25\_step00.png)\{\#fig-param-w02-a25-s01
+width=70\%\}
+
+На рис.~\ref{fig-param-w02-a25-s04} (шаг 5) видно, что маргаритки начали
+образовывать небольшие кластеры. Короткий жизненный цикл (25 тактов)
+обеспечивает быструю смену поколений.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_iw0.2_ma25_step05.png}
+
+}
+
+\caption{\label{fig-param-w02-a25-s04}init\_white=0.2, max\_age=25: шаг
+5}
+
+\end{figure}%
+
+На \textbf{?@fig-param-w02-a25-s40} (шаг 40) система достигла
+устойчивого динамического равновесия. Маргаритки обоих видов
+сосуществуют, заполняя значительную часть решётки.
+
+!{[}init\_white=0.2, max\_age=25: шаг 40{]}
+(равновесие){]}(image/daisyworld\_iw0.2\_ma25\_step40.png)\{\#fig-param-w02-a25-s40
+width=70\%\}
+
+\subsection{Комбинация: init\_white=0.2,
+max\_age=40}\label{ux43aux43eux43cux431ux438ux43dux430ux446ux438ux44f-init_white0.2-max_age40}
+
+Увеличение максимального возраста до 40 тактов означает, что маргаритки
+живут дольше. Это приводит к более плотному заполнению решётки, так как
+маргаритки успевают занять больше соседних клеток до своей гибели. Более
+длинный жизненный цикл способствует формированию крупных стабильных
+кластеров.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_iw0.2_ma40_step00.png}
+
+}
+
+\caption{\label{fig-param-w02-a40-s01}init\_white=0.2, max\_age=40: шаг
+0}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_iw0.2_ma40_step05.png}
+
+}
+
+\caption{\label{fig-param-w02-a40-s04}init\_white=0.2, max\_age=40: шаг
+5}
+
+\end{figure}%
+
+На \textbf{?@fig-param-w02-a40-s40} видно, что при \texttt{max\_age=40}
+решётка заполнена плотнее, чем при \texttt{max\_age=25}
+(\textbf{?@fig-param-w02-a25-s40}). Длительный жизненный цикл приводит к
+тому, что маргаритки накапливаются, и свободных клеток остаётся мало.
+
+!{[}init\_white=0.2, max\_age=40: шаг 40{]} (более плотное
+заполнение){]}(image/daisyworld\_iw0.2\_ma40\_step40.png)\{\#fig-param-w02-a40-s40
+width=70\%\}
+
+\subsection{Комбинация: init\_white=0.8,
+max\_age=25}\label{ux43aux43eux43cux431ux438ux43dux430ux446ux438ux44f-init_white0.8-max_age25}
+
+Высокая начальная доля белых маргариток (80\%) при стандартном возрасте
+(25 тактов) создаёт начальное преобладание белого вида. Белые маргаритки
+отражают больше излучения, охлаждая поверхность. Однако при текущей
+солнечной светимости (\(L = 1.0\)) чёрные маргаритки, нагревающие среду,
+получают конкурентное преимущество, и со временем их доля увеличивается.
+
+!{[}init\_white=0.8, max\_age=25: шаг 0{]} (преобладание
+белых){]}(image/daisyworld\_iw0.8\_ma25\_step00.png)\{\#fig-param-w08-a25-s01
+width=70\%\}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_iw0.8_ma25_step05.png}
+
+}
+
+\caption{\label{fig-param-w08-a25-s04}init\_white=0.8, max\_age=25: шаг
+5}
+
+\end{figure}%
+
+На рис.~\ref{fig-param-w08-a25-s40} видно, что несмотря на начальное
+преобладание белых (80\%), к шагу 40 система стремится к тому же
+равновесию, что и при \texttt{init\_white=0.2}. Это демонстрирует
+устойчивость аттрактора модели: конечное состояние мало зависит от
+начальных условий.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_iw0.8_ma25_step40.png}
+
+}
+
+\caption{\label{fig-param-w08-a25-s40}init\_white=0.8, max\_age=25: шаг
+40 (система движется к равновесию)}
+
+\end{figure}%
+
+\subsection{Комбинация: init\_white=0.8,
+max\_age=40}\label{ux43aux43eux43cux431ux438ux43dux430ux446ux438ux44f-init_white0.8-max_age40}
+
+Комбинация высокой начальной доли белых и длинного жизненного цикла. В
+начале решётка почти полностью заполнена белыми маргаритками, а чёрных
+всего 20\%. Длинный жизненный цикл (\texttt{max\_age=40}) замедляет
+процесс смены поколений, и белые маргаритки дольше сохраняют
+преобладание.
+
+!{[}init\_white=0.8, max\_age=40: шаг 0{]} (почти вся решётка ---
+белые){]}(image/daisyworld\_iw0.8\_ma25\_step00.png)\{\#fig-param-w08-a40-s01
+width=70\%\}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_iw0.8_ma25_step05.png}
+
+}
+
+\caption{\label{fig-param-w08-a40-s04}init\_white=0.8, max\_age=40: шаг
+5}
+
+\end{figure}%
+
+На рис.~\ref{fig-param-w08-a40-s40} к шагу 40 решётка остаётся плотно
+заполненной. Сочетание высокой начальной доли белых и длинного цикла
+жизни приводит к медленной динамике --- система ещё не полностью
+достигла равновесия, белые маргаритки всё ещё могут преобладать.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisyworld_iw0.8_ma25_step40.png}
+
+}
+
+\caption{\label{fig-param-w08-a40-s40}init\_white=0.8, max\_age=40: шаг
+40}
+
+\end{figure}%
+
+\section{Динамика численности с параметрическим
+исследованием}\label{ux434ux438ux43dux430ux43cux438ux43aux430-ux447ux438ux441ux43bux435ux43dux43dux43eux441ux442ux438-ux441-ux43fux430ux440ux430ux43cux435ux442ux440ux438ux447ux435ux441ux43aux438ux43c-ux438ux441ux441ux43bux435ux434ux43eux432ux430ux43dux438ux435ux43c}
+
+Шестой скрипт \texttt{scripts/daisyworld-count\_\_param.jl} строит
+графики динамики численности маргариток для каждой комбинации параметров
+\texttt{init\_white} и \texttt{max\_age}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ init\_white }\KeywordTok{in}\NormalTok{ [}\FloatTok{0.2}\NormalTok{, }\FloatTok{0.8}\NormalTok{], max\_age }\KeywordTok{in}\NormalTok{ [}\FloatTok{25}\NormalTok{, }\FloatTok{40}\NormalTok{]}
+\NormalTok{    params }\OperatorTok{=} \PreprocessorTok{@strdict}\NormalTok{ init\_white max\_age}
+\NormalTok{    model }\OperatorTok{=} \FunctionTok{daisyworld}\NormalTok{(; init\_white, max\_age)}
+\NormalTok{    adata }\OperatorTok{=}\NormalTok{ [(black, count), (white, count)]}
+\NormalTok{    adf, \_ }\OperatorTok{=} \FunctionTok{run!}\NormalTok{(model, }\FloatTok{100}\NormalTok{; adata)}
+
+\NormalTok{    fig }\OperatorTok{=} \FunctionTok{Figure}\NormalTok{(size }\OperatorTok{=}\NormalTok{ (}\FloatTok{800}\NormalTok{, }\FloatTok{400}\NormalTok{))}
+\NormalTok{    ax }\OperatorTok{=} \FunctionTok{Axis}\NormalTok{(fig[}\FloatTok{1}\NormalTok{, }\FloatTok{1}\NormalTok{];}
+\NormalTok{        title }\OperatorTok{=} \FunctionTok{savename}\NormalTok{(params),}
+\NormalTok{        xlabel }\OperatorTok{=} \StringTok{"Step"}\NormalTok{, ylabel }\OperatorTok{=} \StringTok{"Count"}
+\NormalTok{    )}
+    \FunctionTok{lines!}\NormalTok{(ax, adf.time, adf.count\_black;}
+\NormalTok{        label }\OperatorTok{=} \StringTok{"Black"}\NormalTok{, color }\OperatorTok{=} \OperatorTok{:}\NormalTok{black)}
+    \FunctionTok{lines!}\NormalTok{(ax, adf.time, adf.count\_white;}
+\NormalTok{        label }\OperatorTok{=} \StringTok{"White"}\NormalTok{, color }\OperatorTok{=} \OperatorTok{:}\NormalTok{orange)}
+    \FunctionTok{axislegend}\NormalTok{(ax)}
+\NormalTok{    fname }\OperatorTok{=} \FunctionTok{savename}\NormalTok{(}\StringTok{"daisy{-}count"}\NormalTok{, params, }\StringTok{"png"}\NormalTok{)}
+    \FunctionTok{save}\NormalTok{(}\FunctionTok{plotsdir}\NormalTok{(fname), fig)}
+\ControlFlowTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+На рис.~\ref{fig-count-param-run} показан запуск скрипта.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/05.png}
+
+}
+
+\caption{\label{fig-count-param-run}Запуск скрипта
+daisyworld-count\_\_param.jl}
+
+\end{figure}%
+
+На рис.~\ref{fig-count-param-w02-a25} (init\_white=0.2, max\_age=25) обе
+популяции стартуют с равных позиций (по 20\% решётки) и быстро растут.
+При коротком жизненном цикле (25 тактов) наблюдаются заметные колебания
+численности --- маргаритки быстро рождаются и быстро умирают, создавая
+пульсирующую динамику. Баланс между видами устанавливается за
+\(\sim 30\) шагов.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisy_count_iw0.2_ma25.png}
+
+}
+
+\caption{\label{fig-count-param-w02-a25}Динамика численности при
+init\_white=0.2, max\_age=25}
+
+\end{figure}%
+
+На рис.~\ref{fig-count-param-w02-a40} (init\_white=0.2, max\_age=40) при
+увеличении максимального возраста до 40 динамика становится более
+плавной. Маргаритки живут дольше, поэтому смена поколений происходит
+медленнее. Общая численность обоих видов выше, так как маргаритки дольше
+занимают клетки. Равновесие достигается более гладко, без выраженных
+колебаний.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisy_count_iw0.2_ma40.png}
+
+}
+
+\caption{\label{fig-count-param-w02-a40}Динамика численности при
+init\_white=0.2, max\_age=40}
+
+\end{figure}%
+
+На рис.~\ref{fig-count-param-w08-a25} (init\_white=0.8, max\_age=25)
+белые маргаритки стартуют с 80\% решётки, значительно преобладая. В
+первые шаги их численность падает (многие клетки заняты, но после
+\texttt{max\_age=25} тактов маргаритки начинают массово погибать).
+Одновременно чёрные маргаритки, стартовавшие с 20\%, активно
+размножаются. К шагу \(\sim 40\) система приходит к тому же равновесию,
+что и при \texttt{init\_white=0.2}, подтверждая устойчивость аттрактора.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisy_count_iw0.8_ma25.png}
+
+}
+
+\caption{\label{fig-count-param-w08-a25}Динамика численности при
+init\_white=0.8, max\_age=25}
+
+\end{figure}%
+
+На рис.~\ref{fig-count-param-w08-a40} (init\_white=0.8, max\_age=40)
+комбинация высокой начальной доли белых и длинного жизненного цикла
+приводит к наиболее медленной динамике перехода к равновесию. Белые
+маргаритки сохраняют преобладание дольше, так как живут 40 тактов.
+Чёрные маргаритки медленнее наращивают численность, так как большинство
+клеток уже занято белыми. Полное равновесие устанавливается только к
+шагу \(\sim 60\)--\(80\).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisy_count_iw0.8_ma40.png}
+
+}
+
+\caption{\label{fig-count-param-w08-a40}Динамика численности при
+init\_white=0.8, max\_age=40}
+
+\end{figure}%
+
+\section{Полная динамика с параметрическим
+исследованием}\label{ux43fux43eux43bux43dux430ux44f-ux434ux438ux43dux430ux43cux438ux43aux430-ux441-ux43fux430ux440ux430ux43cux435ux442ux440ux438ux447ux435ux441ux43aux438ux43c-ux438ux441ux441ux43bux435ux434ux43eux432ux430ux43dux438ux435ux43c}
+
+Седьмой скрипт \texttt{scripts/daisyworld-luminosity\_\_param.jl} строит
+трёхпанельные графики полной динамики (численность, температура,
+светимость) в сценарии \texttt{ramp} для каждой комбинации параметров.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ init\_white }\KeywordTok{in}\NormalTok{ [}\FloatTok{0.2}\NormalTok{, }\FloatTok{0.8}\NormalTok{], max\_age }\KeywordTok{in}\NormalTok{ [}\FloatTok{25}\NormalTok{, }\FloatTok{40}\NormalTok{]}
+\NormalTok{    params }\OperatorTok{=} \PreprocessorTok{@strdict}\NormalTok{ init\_white max\_age scenario}
+\NormalTok{    model }\OperatorTok{=} \FunctionTok{daisyworld}\NormalTok{(; init\_white, max\_age, scenario }\OperatorTok{=} \OperatorTok{:}\NormalTok{ramp)}
+\NormalTok{    adata }\OperatorTok{=}\NormalTok{ [(black, count), (white, count)]}
+\NormalTok{    mdata }\OperatorTok{=}\NormalTok{ [}\OperatorTok{:}\NormalTok{solar\_luminosity, }\OperatorTok{:}\NormalTok{global\_temperature]}
+\NormalTok{    adf, mdf }\OperatorTok{=} \FunctionTok{run!}\NormalTok{(model, }\FloatTok{1000}\NormalTok{; adata, mdata)}
+    \CommentTok{\#\# Построение графика}
+\NormalTok{    fig }\OperatorTok{=} \FunctionTok{Figure}\NormalTok{(size }\OperatorTok{=}\NormalTok{ (}\FloatTok{800}\NormalTok{, }\FloatTok{900}\NormalTok{))}
+    \CommentTok{\#\# ... (панели: численность,}
+    \CommentTok{\#\#       температура, светимость)}
+\NormalTok{    fname }\OperatorTok{=} \FunctionTok{savename}\NormalTok{(}\StringTok{"daisy{-}luminosity"}\NormalTok{,}
+\NormalTok{        params, }\StringTok{"png"}\NormalTok{)}
+    \FunctionTok{save}\NormalTok{(}\FunctionTok{plotsdir}\NormalTok{(fname), fig)}
+\ControlFlowTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+На рис.~\ref{fig-luminosity-param-run} показан запуск скрипта.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/06.png}
+
+}
+
+\caption{\label{fig-luminosity-param-run}Запуск скрипта
+daisyworld-luminosity\_\_param.jl}
+
+\end{figure}%
+
+На рис.~\ref{fig-luminosity-param-w02-a25} (init\_white=0.2,
+max\_age=25, scenario=ramp) при равных начальных долях и коротком
+жизненном цикле видна быстрая реакция системы на изменения светимости.
+При росте светимости белые маргаритки быстро вытесняют чёрные, отражая
+излучение и стабилизируя температуру. При падении светимости ---
+наоборот, доминируют чёрные. Короткий жизненный цикл
+(\texttt{max\_age=25}) обеспечивает быструю адаптацию: смена поколений
+происходит часто, и система оперативно реагирует на изменения.
+Температура остаётся в относительно узком диапазоне, несмотря на
+значительные колебания светимости.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisy_luminosity_iw0.2_ma25.png}
+
+}
+
+\caption{\label{fig-luminosity-param-w02-a25}Полная динамика при
+init\_white=0.2, max\_age=25, scenario=ramp}
+
+\end{figure}%
+
+На рис.~\ref{fig-luminosity-param-w02-a40} (init\_white=0.2,
+max\_age=40, scenario=ramp) увеличение максимального возраста до 40
+замедляет реакцию системы на изменения светимости. Маргаритки живут
+дольше, и смена доминирующего вида происходит медленнее. Это может
+приводить к большим отклонениям температуры от оптимальной, так как
+система не успевает адаптироваться к быстрым изменениям внешних условий.
+Инерционность системы возрастает.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisy_luminosity_iw0.2_ma40.png}
+
+}
+
+\caption{\label{fig-luminosity-param-w02-a40}Полная динамика при
+init\_white=0.2, max\_age=40, scenario=ramp}
+
+\end{figure}%
+
+На рис.~\ref{fig-luminosity-param-w08-a25} (init\_white=0.8,
+max\_age=25, scenario=ramp) высокая начальная доля белых маргариток
+влияет только на переходную фазу. Благодаря короткому жизненному циклу
+(\texttt{max\_age=25}), система быстро «забывает» начальные условия и
+переходит к тому же режиму саморегуляции, что и при
+\texttt{init\_white=0.2}. Динамика при циклическом изменении светимости
+практически неотличима от рис.~\ref{fig-luminosity-param-w02-a25} после
+нескольких десятков шагов.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisy_luminosity_iw0.8_ma25.png}
+
+}
+
+\caption{\label{fig-luminosity-param-w08-a25}Полная динамика при
+init\_white=0.8, max\_age=25, scenario=ramp}
+
+\end{figure}%
+
+На рис.~\ref{fig-luminosity-param-w08-a40} (init\_white=0.8,
+max\_age=40, scenario=ramp) комбинация высокой начальной доли белых и
+длинного жизненного цикла даёт наиболее инерционную динамику. Белые
+маргаритки доминируют в начальной фазе, и их преобладание сохраняется
+дольше из-за большого \texttt{max\_age}. Это приводит к более
+выраженному охлаждению в начале и более медленному переходу к режиму
+саморегуляции. Тем не менее, при достаточно длинной симуляции (1000
+шагов) система выходит на тот же квазипериодический режим, что и в
+остальных случаях.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/daisy_luminosity_iw0.8_ma40.png}
+
+}
+
+\caption{\label{fig-luminosity-param-w08-a40}Полная динамика при
+init\_white=0.8, max\_age=40, scenario=ramp}
+
+\end{figure}%
+
+\subsection{Цикл литературного программирования для всех
+скриптов}\label{ux446ux438ux43aux43b-ux43bux438ux442ux435ux440ux430ux442ux443ux440ux43dux43eux433ux43e-ux43fux440ux43eux433ux440ux430ux43cux43cux438ux440ux43eux432ux430ux43dux438ux44f-ux434ux43bux44f-ux432ux441ux435ux445-ux441ux43aux440ux438ux43fux442ux43eux432}
+
+Из литературного скрипта \texttt{daisyworld-luminosity\_\_param.jl}
+сгенерированы производные форматы:
+
+1.\textbf{Все скрипты во всех форматах} ---
+рис.~\ref{fig-luminosity-param-clean}.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/6.png}
+
+}
+
+\caption{\label{fig-luminosity-param-clean}Генерация каждого формата для
+каждого скрипта}
+
+\end{figure}%
+
+\chapter{Выводы}\label{ux432ux44bux432ux43eux434ux44b}
+
+По итогам лабораторной работы достигнуты следующие результаты:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Изучены основы агентного моделирования} (ABM). Освоены
+  ключевые принципы: эмерджентность, автономн ость, гетерогенность и
+  локальность взаимодействий. Практически применён фреймворк Agents.jl
+  для построения модели с пространственно распределёнными агентами на
+  решётке \(30 \times 30\).
+\item
+  \textbf{Реализована модель Daisyworld}
+  \autocite{lovelock_1983,watson_1983} с двумя видами маргариток (чёрные
+  и белые), механизмом температурной саморегуляции через альбедо и двумя
+  сценариями изменения светимости (\texttt{default} и \texttt{ramp}).
+  Модель демонстрирует ключевое свойство --- биологическая саморегуляция
+  планетарной температуры без целенаправленного управления.
+\item
+  \textbf{Проведена визуализация} состояния модели в виде тепловых карт
+  (heatmap), анимации и временных рядов. Построены графики динамики
+  численности маргариток и трёхпанельные диаграммы полной динамики
+  (численность, температура, светимость).
+\item
+  \textbf{Выполнено параметрическое исследование} с варьированием
+  начальной доли белых маргариток (\texttt{init\_white} = 0.2 и 0.8) и
+  максимального возраста (\texttt{max\_age} = 25 и 40). Ключевые
+  результаты:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Влияние \texttt{init\_white}}: начальные условия влияют на
+    переходную фазу, но не на конечное равновесие --- система обладает
+    устойчивым аттрактором.
+  \item
+    \textbf{Влияние \texttt{max\_age}}: увеличение жизненного цикла
+    повышает плотность заполнения решётки, сглаживает колебания
+    численности, но увеличивает инерционность реакции системы на внешние
+    изменения.
+  \end{itemize}
+\item
+  \textbf{Применена методология литературного программирования}
+  \autocite{knuth_1984} с использованием Literate.jl
+  \autocite{literate_jl}. Из каждого литературного скрипта сгенерированы
+  три производных формата: чистый Julia-скрипт, Jupyter notebook и
+  Markdown-документация. Проект организован с помощью DrWatson
+  \autocite{drwatson_jl}, что обеспечивает полную воспроизводимость
+  вычислений.
+\end{enumerate}
+
+\chapter*{Список
+литературы}\label{ux441ux43fux438ux441ux43eux43a-ux43bux438ux442ux435ux440ux430ux442ux443ux440ux44b}
+\addcontentsline{toc}{chapter}{Список литературы}
+
+\printbibliography[heading=none]
+
+
+
+
+
+\end{document}

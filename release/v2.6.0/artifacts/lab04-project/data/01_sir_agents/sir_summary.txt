@@ -1,0 +1,4 @@
+R0 = 2.0
+peak_time = 18
+peak_infected = 168
+recovered_final = 789

@@ -1,0 +1,6 @@
+peak_time = 11
+peak_infected = 1800
+peak_share = 1.0
+final_infected_share = 0.0672
+final_recovered_share = 0.9083
+death_share = 0.0244

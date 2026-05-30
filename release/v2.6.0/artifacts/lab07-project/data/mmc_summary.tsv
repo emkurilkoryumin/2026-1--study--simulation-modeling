@@ -1,0 +1,2 @@
+num_customers	warmup_customers	num_servers	arrival_rate	service_rate	mean_wait_sim	mean_wait_theory	mean_system_sim	mean_system_theory	avg_queue_sim	avg_queue_theory	utilization_sim	utilization_theory	prob_wait_sim	prob_wait_theory
+1500	200	2	0.85	0.5	5.61851806657661	5.2072072072072055	7.623856261579671	7.2072072072072055	5.993045099214986	4.426126126126125	0.8752618334832689	0.85	0.7838461538461539	0.781081081081081

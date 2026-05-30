@@ -1,0 +1,2 @@
+N	S	num_repairers	failure_mean	repair_mean	crash_time	crash_time_theory	mean_utilization	avg_queue_length	failures	repairs	status
+10	3	2	20.0	8.0	9.314685745739258	11.375	0.6141174491151407	0.17390490710038123	5	1	system crashed

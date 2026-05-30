@@ -1,0 +1,2 @@
+scenario,parameter,value,beta,contacts,gamma,recovery_mode,peak_infected,peak_time,final_susceptible,final_infected,final_recovered,affected_share,events
+base,base,NaN,0.05,10.0,0.25,exponential,152,18.44749682726417,230,11,759,0.77,1519

@@ -1,0 +1,2 @@
+population,tmax,samples,minimum_seconds,median_seconds,memory_bytes,allocations
+10000,40.0,3,27.556232581,27.71369041,1338098160,43290178
